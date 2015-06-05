@@ -1,5 +1,5 @@
 
-public interface List {
+public interface List <T extends Comparable> {
 	
 
 	    /**
@@ -22,7 +22,7 @@ public interface List {
 	     * @param x das Item
 	     * @return true, x ist in der Liste enthalten
 	     */
-	    boolean isInList(Item x);
+	    boolean isInList(T x);
 
 	    /**
 	     * Gibt das erste Item der Liste zurueck
@@ -30,7 +30,7 @@ public interface List {
 	     * @return das erste Item
 	     * @throws IllegalStateException wenn die Liste leer ist
 	     */
-	    Item firstItem() throws IllegalStateException;
+	    T firstItem() throws IllegalStateException;
 
 	    /**
 	     * Gibt das i-te Item der Liste zurueck
@@ -39,7 +39,7 @@ public interface List {
 	     * @return das i-te Item
 	     * @throws IndexOutOfBoundsException wenn i < 0 oder  i >= length()
 	     */
-	    Item getItem(int i) throws IndexOutOfBoundsException;
+	    T getItem(int i) throws IndexOutOfBoundsException;
 
 	    /**
 	     * Fuegt ein Element sortiert in die Liste ein
@@ -47,15 +47,15 @@ public interface List {
 	     * @param x das Item
 	     * @return die geanderte Liste
 	     */
-	    List insert(Item x);
+	    List<T> insert(T x);
 
 	    /**
 	     * Fuegt ein Element an das Ende der Liste ein
 	     *
 	     * @param x das Item
-	     * @return die geanderte Liste
+	     * @return die geaenderte Liste
 	     */
-	    List append(Item x);
+	    List<T> append(T x);
 
 	    /**
 	     * Loescht das erste vorkommen des Items x
@@ -63,14 +63,14 @@ public interface List {
 	     * @param x das Item
 	     * @return die geanderte Liste
 	     */
-	    List delete(Item x);
+	    List<T> delete(T x);
 
 	    /**
 	     * Loescht das erste Element der Liste
 	     *
 	     * @return die geanderte Liste
 	     */
-	    List delete();
+	    List<T> delete();
 	}
 
 

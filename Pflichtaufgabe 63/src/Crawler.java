@@ -7,7 +7,11 @@ import java.util.Scanner;
  *  @version 1.1
  */
 public class Crawler {
-    
+
+
+    private static Player player = new Player();
+    private static Shop shop = new Shop();
+	
     /**
      *  Spieler und Map werden erstellt
      *  Solange der Spieler nicht "tot" ist und solange das Zielfeld
@@ -15,10 +19,8 @@ public class Crawler {
      *  @param args keine Funktion
      */
     public static void main(String[] args) {
-    	Inventar p = new Inventar();
+    	
 
-       Player player = new Player();
-       Shop shop = new Shop();
         int x = 1;
         int y = 1;
         System.out.println("\nBitte waehle die Groesse deines Spielfeldes."
@@ -107,7 +109,7 @@ public class Crawler {
         if (level.wand(level.getPlayerPositionx() + 1, level.getPlayerPositiony()) == false) {
             untenfrei = true;
         }
-        System.out.println("Du kannst dein Inventar anzeigen lassen und du kannst dich nach" + ((linksfrei) ? " links (a)" : "") 
+        System.out.println("Du kannst dein Inventar <i> anzeigen lassen und du kannst dich nach" + ((linksfrei) ? " links (a)" : "") 
             + ((rechtsfrei) ? " rechts (d)" : "")
             + ((obenfrei) ? " oben (w)" : "") + ((untenfrei) ? " unten (s)" : "") + " bewegen.");
         Scanner abfrage = new Scanner(System.in);
@@ -124,13 +126,12 @@ public class Crawler {
         if (eingabe.equals("s") && untenfrei) {
             level.setPlayerPositionx(level.getPlayerPositionx() + 1);
         }     
-        //if(eingabe.equals("Inventar")) {
-        	//System.out.println(player.inventar.toString());
+        if(eingabe.equals("i")) {
+        	System.out.println(player.inventar.toString());
         	
         	
-        //}
+        }
     }
-    
     
     /**
      *  Kampf wird simuliert
@@ -219,7 +220,7 @@ public class Crawler {
             	
                 System.out.println("\nDu hast den Kampf gewonnen!");
                 if (!monster.inventar.isEmpty()) {
-                    player.inventar.append(monster.inventar.getItem(1));
+                    player.inventar.insert(monster.inventar.getItem(1));
                     monster.inventar.delete();
                    }
                    System.out.println("\nDu hast folgende Gegenstände im Inventar: " + player.inventar.toString());
