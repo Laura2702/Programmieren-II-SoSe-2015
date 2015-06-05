@@ -1,47 +1,27 @@
-/**
- * The interface Maze generator.
- *
- * @author Max Mustermann 1234567 Gruppe 42z
- * @author Erika Musterfrau 1234567 Gruppe 42z
+/** MazeGenerator Interface
+ *  @author Laura Pichlmeier 4753524 Gruppe 3b
+ *  @author Sophie Duehn 4577449 Gruppe 3b
  */
 public interface MazeGenerator {
-
+    /** Wall */
+    static final char WALL = 'x';
+    /** Free */
+    static final char FREE = '.';
+    /** Start */
+    static final char START = 'S';
+    /** Battle */
+    static final char BATTLE = 'B';
+    /** Schmiede */
+    static final char SMITHY = 'T';
+    /** Brunnen */
+    static final char WELL = 'O';
+    /** Ziel */
+    static final char GOAL = 'Z';
+    
     /**
-     * The WALLCHAR.
+     *  @param height gibt Hoehe an
+     *  @param width gibt Breite an
+     *  @return char[][] 
      */
-    char WALLCHAR = '#';
-    /**
-     * The FREECHAR.
-     */
-    char FREECHAR = '.';
-    /**
-     * The STARTCHAR.
-     */
-    char STARTCHAR = 'S';
-    /**
-     * The BATTLECHAR.
-     */
-    char BATTLECHAR = 'B';
-    /**
-     * The SMITHYCHAR.
-     */
-    char SMITHYCHAR = 'T';
-    /**
-     * The WELLCHAR.
-     */
-    char WELLCHAR = 'O';
-    /**
-     * The GOALCHAR.
-     */
-    char GOALCHAR = 'Z';
-
-    /**
-     * Generate char [ ] [ ].
-     *
-     * @param height the height
-     * @param width  the width
-     *
-     * @return the char [ ] [ ]
-     */
-    char[][] generate(int height, int width);
+    public char[][] generate(int height, int width);
 }

@@ -4,7 +4,7 @@
  * @author Max Mustermann 1234567 Gruppe 42z
  * @author Erika Musterfrau 1234567 Gruppe 42z
  */
-public class Inventar implements List {
+public class Inventar <T> implements List {
 
     /**
      * The Item.
@@ -14,7 +14,7 @@ public class Inventar implements List {
     /**
      * The Next.
      */
-    private Inventar next;
+    private Inventar <T> next;
 
     /**
      * Ueberprueft ob die Liste leer ist
@@ -77,9 +77,9 @@ public class Inventar implements List {
      *
      * @return die geanderte Liste
      */
-    public Inventar insert(Item x) {
+    public Inventar<T> insert(Item x) {
         if (isEmpty() || x.compareTo(firstItem()) <= 0) {
-            Inventar l = new Inventar();
+            Inventar<T> l = new Inventar<T>();
             l.item = x;
             l.next = next;
             next = l;
@@ -95,7 +95,7 @@ public class Inventar implements List {
      *
      * @return die geanderte Liste
      */
-    public Inventar append(Item x) {
+    public Inventar<T> append(Item x) {
         if (isEmpty()) {
             return insert(x);
         }
@@ -109,8 +109,8 @@ public class Inventar implements List {
      *
      * @return die geanderte Liste
      */
-    public Inventar delete(Item x) {
-        Inventar l = find(x);
+    public Inventar<T> delete(Item x) {
+        Inventar<T> l = find(x);
         if (l != null) {
             l.next = l.next.next;
         }
@@ -122,7 +122,7 @@ public class Inventar implements List {
      *
      * @return die geanderte Liste
      */
-    public Inventar delete() {
+    public Inventar<T> delete() {
         if (!isEmpty()) {
             next = next.next;
         }
@@ -136,7 +136,7 @@ public class Inventar implements List {
      *
      * @return the inventar
      */
-    private Inventar find(Item x) {
+    private Inventar<T> find(Item x) {
         if (isEmpty()) {
             return null;
         } else if (firstItem().equals(x)) {
@@ -168,6 +168,11 @@ public class Inventar implements List {
             string.append(i);
             string.append(" - ");
             string.append(getItem(i));
+            string.append(" - Händlerpreis");
+            string.append((int)(getItem(i).getValue())*1.3);
+            string.append("\n");
+            string.append("- Verkaufswert");
+            string.append(getItem(i).getValue());
             string.append("\n");
         }
         return string.toString();

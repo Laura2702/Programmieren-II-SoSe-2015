@@ -1,64 +1,42 @@
 /**
- * The type Monster.
+ *  Die Klasse Monster ist eine Unterklasse von Character
  *
- * @author Max Mustermann 1234567 Gruppe 42z
- * @author Erika Musterfrau 1234567 Gruppe 42z
+ *  @author Laura Pichlmeier 4753524 Gruppe 3b
+ *  @author Sophie Duehn 4577449 Gruppe 3b
+ *  @version 1.1 
  */
 public class Monster extends Character {
-
+	
+	
+	
+	protected int gold;
     /**
-     * The Name.
-     */
-    private String name;
-
-    /**
-     * Instantiates a new Monster.
-     */
+     *  Constructor setzt Werte fuer maxHP, hp, atk und hitChance
+     **/
     public Monster() {
-        this("Gegner", 40, 8, 0.9);
+        super(70, 70, 2, 0.6,new Inventar<Item>());
+        inventar.append(new Item());
+        inventar.append(new Item());
+        inventar.append(new Item());
+        inventar.append(new Item());
+        this.gold = 0;
     }
-
+    
     /**
-     * Instantiates a new Monster.
-     *
-     * @param hp        the hp
-     * @param atk       the atk
-     * @param hitChance the hit chance
-     */
-    public Monster(int hp, int atk, double hitChance) {
-        this("Gegner", hp, atk, hitChance);
-    }
-
-    /**
-     * Instantiates a new Monster.
-     *
-     * @param name      the name
-     * @param hp        the hp
-     * @param atk       the atk
-     * @param hitChance the hit chance
-     */
-    public Monster(String name, int hp, int atk, double hitChance) {
-        super(hp, atk, hitChance, (int) (1000 * Math.random()));
-        this.name = name;
-        fillInventory();
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * To string.
-     *
-     * @return the string
+     *  @return Gibt aktuelle HP- und ATK-Anzahl aus.
      */
     public String toString() {
-        return String.format("%s -- HP %d -- ATK %d%n", getName(), getHp(), getAtk());
+        return "Monster: HP: " + this.hp + " - ATK: " + this.atk;
     }
 
+	
+
+	public Inventar<Item> getInventar() {
+		// TODO Auto-generated method stub
+		return this.inventar;
+	}
+	public int getGold() {
+		return gold;
+	}
+	
 }

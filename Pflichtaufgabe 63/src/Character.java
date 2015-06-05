@@ -1,220 +1,118 @@
-/**
- * The type Character.
- *
- * @author Max Mustermann 1234567 Gruppe 42z
- * @author Erika Musterfrau 1234567 Gruppe 42z
- */
+/** 
+ *  Character ist eine Klasse.
+ *  @author Laura Pichlmeier 4573524 Gruppe 3b
+ *  @author Sophie Duehn 4577449 Gruppe 3b
+ **/
 public class Character {
+    /** maxHP */
+    protected int maxHP;
+    /** hp */
+    protected int hp;
+    /** atk */
+    protected int atk;
+    /** hitChance */
+    protected double hitChance;
+    protected int gold;
+    protected Inventar<Item> inventar;
+    
     /**
-     * The constant ATTACK_NORMAL.
-     */
-    public static final int ATTACK_NORMAL = 0;
-    /**
-     * The constant ATTACK_SPECIAL.
-     */
-    public static final int ATTACK_SPECIAL = 1;
-    /**
-     * The Max hp.
-     */
-    private int maxHp;
-    /**
-     * The Hp.
-     */
-    private int hp;
-    /**
-     * The Atk.
-     */
-    private int atk;
-    /**
-     * The Hit chance.
-     */
-    private double hitChance;
-    /**
-     * The Inventar.
-     */
-    private List inventar;
-    /**
-     * The Gold.
-     */
-    private int gold;
-
-    /**
-     * Instantiates a new Character.
-     *
-     * @param maxHp     the max hp
-     * @param atk       the atk
-     * @param hitChance the hit chance
-     * @param gold      the gold
-     */
-    public Character(int maxHp, int atk, double hitChance, int gold) {
-        this.maxHp = maxHp;
-        this.hp = maxHp;
+     *  Character-Constructor:
+     *  @param maxHP maxHP
+     *  @param hp hp
+     *  @param atk atk
+     *  @param hitChance hitChance
+     **/
+    public Character(int maxHP, int hp, int atk, double hitChance,Inventar<Item> inventar) {
+        this.maxHP = maxHP;
+        this.hp = hp;
         this.atk = atk;
         this.hitChance = hitChance;
-        inventar = new Inventar();
-        this.gold = gold;
+        this.inventar = inventar;
     }
-
+    
     /**
-     * Gets hit chance.
-     *
-     * @return the hit chance
-     */
+     *  @return maxHP
+     **/
+    public int getMaxHP() {
+        return this.maxHP;
+    }
+    
+    /**
+     *  @return hp
+     **/
+    public int getHp() {
+        return this.hp;
+    }
+    
+    /**
+     *  @return atk
+     **/
+    public int getAtk() {
+        return this.atk;
+    }
+    
+    /**
+     *  @return hitChance
+     **/
     public double getHitChance() {
-        return hitChance;
+        return this.hitChance;
     }
-
+    
     /**
-     * Sets hit chance.
-     *
-     * @param hitChance the hit chance
-     */
-    public void setHitChance(double hitChance) {
-        if (hitChance >= 0 && hitChance <= 1) {
-            this.hitChance = hitChance;
+     *  @return true, wenn player besiegt ist
+     **/
+    public boolean isDefeated() {
+        if (this.hp == 0) {
+            return true;
+        } else {
+            return false;
         }
     }
-
+    
     /**
-     * Gets hp.
-     *
-     * @return the hp
-     */
-    public int getHp() {
-        return hp;
-    }
-
-    /**
-     * Sets hp.
-     *
-     * @param hp the hp
-     */
-    public void setHp(int hp) {
-        if (hp > maxHp) {
-            this.hp = maxHp;
-        } else if (hp < 0) {
+     *  @param damage Schaden, der erlitten wird
+     *  @return damage, der erlitten wird
+     **/
+    public int takeDamage(int damage) {
+        if (this.hp - damage < 0) {
             this.hp = 0;
         } else {
-            this.hp = hp;
+            this.hp = this.hp - damage;
         }
-    }
-
-    /**
-     * Gets max hp.
-     *
-     * @return the max hp
-     */
-    public int getMaxHp() {
-        return maxHp;
-    }
-
-    /**
-     * Gets atk.
-     *
-     * @return the atk
-     */
-    public int getAtk() {
-        return atk;
-    }
-
-    /**
-     * Sets atk.
-     *
-     * @param atk the atk
-     */
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
-
-    /**
-     * Take damage.
-     *
-     * @param damage the damage
-     *
-     * @return the int
-     */
-    public int takeDamage(int damage) {
-        return takeDamage(damage, ATTACK_NORMAL);
-    }
-
-    /**
-     * Take damage.
-     *
-     * @param damage     the damage
-     * @param attackType the attack type
-     *
-     * @return the damage
-     */
-    public int takeDamage(int damage, int attackType) {
-        setHp(getHp() - damage);
         return damage;
     }
-
+    
     /**
-     * Is defeated.
-     *
-     * @return true, wenn man besiegt ist
+     *  Ermittelt, ob der Angriff des Characters trifft und wie viel 
+     *  Schaden dieser beim Gegner verursacht.
+     *  @param character den anzugreifenden character
+     *  @return damage Schaden am Gegner
      */
-    public boolean isDefeated() {
-        return getHp() == 0;
-    }
-
-    /**
-     * Attack int.
-     *
-     * @param c the enemy
-     *
-     * @return -1, fuer Verfehlt, sonst den angerichteten Schaden
-     */
-    public int attack(Character c) {
-        if (Math.random() <= hitChance) {
-            int damage = (int) (atk * (Math.random() + 1.0));
-            return c.takeDamage(damage);
+    public int attack(Character character) {
+        if (this.hitChance > Math.random()) {
+            int damage = (int) (this.atk * (Math.random() + 1));
+            if (character.takeDamage(damage) != -1) {
+                return damage;
+            } else {
+                return -2;
+            }
         } else {
             return -1;
         }
     }
-
+    
     /**
-     * Loot void.
-     *
-     * @param corpse the corpse
-     */
-    public void loot(Character corpse) {
-        gold += corpse.gold;
-        corpse.gold = 0;
-
-        while (!corpse.inventar.isEmpty()) {
-            inventar.insert(corpse.inventar.firstItem());
-            corpse.inventar.delete();
-        }
+     *  atk wird um bestimmten wert erhoeht
+     *  @param wert , um den die atk erhoeht werden
+     **/
+    public void atkerhoehen(int wert) {
+        this.atk += wert;
     }
-
+    
     /**
-     * Gets inventar.
-     *
-     * @return the inventar
-     */
-    public List getInventar() {
-        return inventar;
-    }
-
-    /**
-     * Gets gold.
-     *
-     * @return the gold
-     */
-    public int getGold() {
-        return gold;
-    }
-
-    /**
-     * Fill inventar.
-     */
-    public void fillInventory() {
-        int k = (int) (10 * Math.random());
-        for (int i = 0; i < k; i++) {
-            inventar.insert(new Item());
-        }
+     *  hp werden vollgeheilt
+     **/
+    public void hperhoehen() {
+        this.hp = maxHP;
     }
 }
