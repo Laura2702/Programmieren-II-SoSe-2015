@@ -1,198 +1,134 @@
 /**
- * The type Player.
+ *  Die Klasse Player ist eine Klasse von Objekten mit den Eigenschaften
+ *  hp, maxHP, atk, healingPower, hitChance, remainingItemUses, ap, maxAP,
+ *  apRegen und einer Anzahl an Skills (skills).
  *
- * @author Max Mustermann 1234567 Gruppe 42z
- * @author Erika Musterfrau 1234567 Gruppe 42z
+ *  @author Laura Pichlmeier 4753524 Gruppe 3b
+ *          Sophie Duehn 4577449 Gruppe 3b
+ *  @version 1.1 
  */
 public class Player extends Character {
-    /**
-     * The constant HARD_HIT_COST.
-     */
-    public static final int HARD_HIT_COST = 20;
-    /**
-     * The constant HARD_HIT_SELF_DAMAGE_PERCENT.
-     */
-    public static final int HARD_HIT_SELF_DAMAGE_PERCENT = 20;
-    /**
-     * The constant FIREBALL_COST.
-     */
-    public static final int FIREBALL_COST = 20;
-    /**
-     * The constant REROLL_COST.
-     */
-    public static final int REROLL_COST = 35;
-    /**
-     * The Max ap.
-     */
-    private int maxAp;
-    /**
-     * The Ap regen.
-     */
-    private int apRegen;
-    /**
-     * The Ap.
-     */
-    private int ap;
-    /**
-     * The Healing power.
-     */
+    /** healingPower */
     private int healingPower;
-    /**
-     * The Remaining item uses.
-     */
+    /** remainingItemUses */
     private int remainingItemUses;
-
+    /** ap */
+    private int ap;
+    /** maxAP */
+    private int maxAP;
+    /** apRegen */
+    private int apRegen;
+    /** skills */
+    private Skill[] skills;
+    
+    private int gold;
+    
+        
     /**
-     * Instantiates a new Player.
-     */
+     *  Player-Constructor:
+     **/
     public Player() {
-        this(130, 20, 70, 3, 0.8);
+        super(200, 200, 40, 0.7,new Inventar<Item>());
+        this.healingPower = 100;
+        this.remainingItemUses = 3;
+        this.maxAP = 250;
+        this.ap = 250;
+        this.apRegen = 10;
+        this.skills = new Skill[3];
+        this.skills[0] = new Feuerball();
+        this.skills[1] = new Wasserkanone();
+        this.skills[2] = new Stampfer();
+        
+        this.gold = 0;
     }
 
     /**
-     * Instantiates a new Player.
-     *
-     * @param maxHp             the max hp
-     * @param atk               the atk
-     * @param healingPower      the healing power
-     * @param remainingItemUses the remaining item uses
-     * @param hitChance         the hit chance
+     *  Berechnet die AP, die nach dem Benutzen eines Skills noch vorhanden sind.
+     *  @param value Wert von AP, die abgezogen werden
      */
-    public Player(int maxHp, int atk, int healingPower, int remainingItemUses, double hitChance) {
-        this(maxHp, atk, healingPower, remainingItemUses, hitChance, 70, 10);
+    public void useAP(int value) {
+        if (this.ap - value < 0) {
+            this.ap = 0;
+        } else {
+            this.ap = this.ap - value;
+        }
     }
+    
 
+    
     /**
-     * Instantiates a new Player.
-     *
-     * @param maxHp             the max hp
-     * @param atk               the atk
-     * @param healingPower      the healing power
-     * @param remainingItemUses the remaining item uses
-     * @param hitChance         the hit chance
-     * @param maxAp             the max ap
-     * @param apRegen           the ap regen
-     */
-    public Player(int maxHp, int atk, int healingPower, int remainingItemUses,
-                  double hitChance, int maxAp, int apRegen) {
-        super(maxHp, atk, hitChance, 0);
-        this.healingPower = healingPower;
-        this.remainingItemUses = remainingItemUses;
-        this.maxAp = maxAp;
-        this.ap = maxAp;
-        this.apRegen = apRegen;
-    }
-
-    /**
-     * Gets remaining item uses.
-     *
-     * @return the remaining item uses
+     *  @return Anzahl der verbleibenden Heiltraenke
      */
     public int getRemainingItemUses() {
-        return remainingItemUses;
+        return this.remainingItemUses;
     }
-
+    
     /**
-     * Heal boolean.
-     *
-     * @return true, wenn die Heilung erfolgreich war
+     *  Heilt den Player, um den Wert 100, wenn genuegend Traenke vorhanden sind.
+     *  @return true, wenn Player erfolgreich geheilt wurde
      */
     public boolean heal() {
-        if (remainingItemUses >= 1) {
-            setHp(getHp() + healingPower);
-            remainingItemUses--;
+        if ((this.remainingItemUses > 0) && (this.hp < this.maxHP)) {
+            this.hp = this.hp + this.healingPower;
+            
+            if (this.hp > this.maxHP) {
+                this.hp = this.maxHP;
+            }
+            this.remainingItemUses = this.remainingItemUses - 1;
             return true;
         } else {
             return false;
         }
     }
-
+ 
     /**
-     * Regenerate ap.
-     *
-     * @return die regenerierten AP
-     */
-    public int regenerateAp() {
-        int oldAp = this.ap;
-        this.ap = Math.min(this.ap + this.apRegen, this.maxAp);
-        return this.ap - oldAp;
-    }
-
-    /**
-     * To string.
-     *
-     * @return the string
+     *  @return Gibt aktuelle HP-, ATK-, Item-, AP-Anzahl aus.
      */
     public String toString() {
-        return String.format("Spieler -- HP %d -- ATK %d -- AP %d%n", getHp(), getAtk(), ap);
+        return "Player: HP: " + this.hp + " - ATK: " + this.atk + "\n        Items: " 
+            + this.remainingItemUses + " AP: " + this.ap;
     }
-
+    
     /**
-     * Use ap.
-     *
-     * @param cost the cost
-     *
-     * @return true, wenn die AP erfolgreich verbraucht wurden
+     *  regeneriert AP
+     *  @return regenerierte AP
      */
-    private boolean useAp(int cost) {
-        if (cost > this.ap) {
-            return false;
+    public int regenerateAp() {
+        if (this.ap + this.apRegen <= this.maxAP) {
+            this.ap = this.ap + this.apRegen;
+            return this.apRegen;
         } else {
-            this.ap -= cost;
-            return true;
+            int result = this.maxAP - this.ap;
+            this.ap = this.maxAP;
+            return result;
         }
     }
-
+    
     /**
-     * Hard hit.
-     *
-     * @param m the enemy
-     *
-     * @return the damage
+     *  @param index Index des Skills
+     *  @return Skill
      */
-    public int hardHit(Character m) {
-        if (!useAp(HARD_HIT_COST)) {
-            return -1;
-        } else {
-            // 2-facher bis 4-facher Schaden
-            int damage = (int) (getAtk() * (Math.random() * 2.0 + 2.0));
-            damage = m.takeDamage(damage, ATTACK_SPECIAL);
-            this.takeDamage((int) (HARD_HIT_SELF_DAMAGE_PERCENT / 100.0 * damage), ATTACK_SPECIAL);
-            return damage;
-        }
+    public Skill getSkill(int index) {
+        return this.skills[index];
     }
-
+    
     /**
-     * Fireball int.
-     *
-     * @param m the enemy
-     *
-     * @return the damage
+     *  @return AP
      */
-    public int fireball(Character m) {
-        if (!useAp(FIREBALL_COST)) {
-            return -1;
-        } else {
-            // 1.5-facher Schaden
-            int damage = (int) (getAtk() * 1.5);
-            damage = m.takeDamage(damage, ATTACK_SPECIAL);
-            return damage;
-        }
+    public int getAp() {
+        return this.ap;
     }
-
+    
     /**
-     * Reroll boolean.
-     *
-     * @return true, wenn erfolgreich
-     */
-    public boolean reroll() {
-        if (!useAp(REROLL_COST)) {
-            return false;
-        } else {
-            // ATK * Zufallsfaktor zwischen 0 und 2
-            setAtk((int) (Math.random() * 2 * this.getAtk()));
-            return true;
-        }
+     *  AP werden auf maxAP gesetzt
+     **/
+    public void aperhoehen() {
+        this.ap = maxAP;
     }
-
+    public Inventar getInventar() {
+    	return this.inventar;
+    }
+    public int getGold() {
+    	return this.gold;
+    }
 }
