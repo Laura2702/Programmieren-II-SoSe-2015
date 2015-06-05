@@ -1,0 +1,36 @@
+Die Loesung besteht aus den drei geforderten Klassen:
+
+- Player (in Player.java) implementiert die Klasse fuer den Spieler mit
+den in der Aufgabe geforderten Methoden. Die vorgegebenen Signaturen
+wurden dabei eingehalten. Redundanz in den Konstruktoren wurde durch das
+Verketten dieser mit this() vermieden. Die drei gewaehlten Faehigkeiten sind
+
+    - 2- bis 4-mal ATK Schaden mit Selbstschaden
+    - 1,5 * ATK Schaden
+    - Zufaelliges Veraendern von ATK in einem Intervall um den aktuellen Wert
+
+boolean useAP(int cost) dient dabei dazu, auf das Vorhandensein einer
+ausreichenden Anzahl an AP zu ueberpruefen und diese Zahl um die Kosten zu
+verringern. Dies vereinfacht die Implementierung der Faehigkeiten etwas.
+Die Klasse enthaelt ausserdem Konstanten fuer die Kosten der Faehigkeiten
+und den Selbstschaden, welchen die erste Faehigkeit verursacht. Diese
+Konstanten werden fuer das Auswahlmenue benoetigt.
+
+- Monster (in Monster.java) implementiert die Klasse fuer den Gegner. Die
+Implementierungen der Methoden sind sehr aehnlich zu denen von Player.
+
+- Game (in Game.java) enthaelt die Ablauflogik des Kampfsystems.
+
+Die Auswahl eines zufaelligen Gegners geschieht durch Berechnung einer
+Zahl zwischen 0 und der Anzahl der Monster - 1 und Benutzung dieser
+als Index fuer ein Array, welches entsprechend viele Monster-Objekte
+enthaelt. Der Rest implementiert den Kampfablauf wie in der letzten
+Aufgabe, nur mit Nutzung der Klassen Player und Monster, sowie deren
+Methoden. Durch den Selbstschaden muss die Gewinnueberpruefung nach
+dem Zug des Spielers angepasst werden, da der Kampf nun unentschieden
+ausgehen oder der Spieler sogar direkt nach seinem Zug verlieren kann
+(Selbstschaden toetet Spieler, Gegner ueberlebt!). Fuer die Verarbeitung der
+Eingabe wurde nun, da es inzwischen eingefuehrt ist, switch mit Strings
+(benutzbar ab Java 7) verwendet. Ausserdem werden, wie gefordert, durch
+den Aufruf von p.regenerateAp() am Ende der Runde (= Anfang der naechsten
+Runde) fuer den Spieler AP wiederhergestellt.

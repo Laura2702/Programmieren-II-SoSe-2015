@@ -1,0 +1,33 @@
+Folgende Dateien sind neu bzw. geaendert gegenueber der letzen Loesung:
+
+MazeGenerator.java
+RecursiveBacktracker.java
+Crawler.java
+ArrayHelpers.java
+
+MazeGenerator.java enthaelt das vorgegebene Interface.
+
+Crawler.java wurde leicht angepasst, damit bei der Erzeugung des
+Level-Objektes eine zufaellige Karte erzeugt und als Spielfeld benutzt wird
+
+ArrayHelpers.java enthaelt Hilfsmethoden um einfacher mit Arrays arbeiten zu koennen:
+
+-  public static int[] copy(int[] x, int length) erstellt ein neues Array mit der
+   Laenge length und kopiert eine entsprechende Anzahl an Elementen von x dort hinein.
+   Diese Kopie wird zurueckgegeben.
+
+-  public static int[] delete(int[] x, int index) entfernt das Element an der durch
+   index gegebenen Position. Zurueckgegeben wird ein neues Array ohne das Element.
+
+-  private static boolean in(int[] x, int n) ueberprueft ob n in x vorkommt.
+
+RecursiveBacktracker.java enthaelt die Klasse RecursiveBacktracker,
+welche MazeGenerator implementiert Der groesste Teil des Verfahrens findet
+in der rekursiven Methode
+   private char[][] generate(int curX, int curY, char[][] maze)
+statt. Die Methode waehlt fuer die ihr uebergebene Position
+nacheinander unbesuchte Nachbarn in zufaelliger Reihenfolge aus, entfernt
+die Waende und ruft sich dann rekursiv fuer diese auf. Auusserdem wird in
+die erste Sackgasse, die gefunden wird, das Ziel gesetzt. Das setzen
+anderer Spezialfelder erfolgt erst nach der Generierung der Wege durch
+Aufruf von placeSpecialFields(char[][] maze).

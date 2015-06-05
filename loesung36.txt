@@ -1,0 +1,26 @@
+Character.java enthaelt die in der Aufgabe geforderte Klasse Character,
+in welche die Gemeinsamkeiten von Player und Monster ausgelagert
+wurden. Ausserdem wurde Character allgemein ein eine maximale Anzahl
+an HP als Attribut hinzugefuegt (Stichwort: Selbstheilende Gegner). Um
+die Methode attack auszulagern, wurde der Parametertyp auf Character
+angepasst. takeDamage wurde ausserdem um einen Paramter erweitert, der
+die Art des verursachten Schadens angibt. Dies ist fuer einen der beiden
+neuen Gegnertypen noetig.
+
+Monster.java und Player.java enthalten die entsprechend benannten
+Klassen. Die in Character bereits enthaltenen Methoden und Attribute
+wurden entfernt.
+
+WaitingMonster.java enthaelt einen Gegner, der manchmal eine Runde aussetzt
+und dann mit 2*ATK angreift.
+
+ResistantMonster.java enthaelt einen Gegner, der halben Schaden durch
+normale Angriffe und doppelten Schaden durch Spezialangriffe bekommt. Dazu
+wird die abgeaenderte takeDamage benutzt.
+
+Level.java enthaelt die Klasse fuer die Spielfelder. Sie verwaltet auch
+die Position des Spielers und die moeglichen Bewegungsrichtungen sowie
+die Logik fuer die Felder.
+
+Crawler.java enthaelt die main-Methode des Spiels. Der groesste Teil der
+Logik ist jedoch in Level ausgelagert.

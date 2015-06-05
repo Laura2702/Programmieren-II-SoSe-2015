@@ -1,0 +1,40 @@
+Folgende Dateien sind neu bzw. geaendert gegenueber der letzen Loesung:
+
+List.java
+Inventar.java
+Item.java
+Character.java
+Player.java
+Monster.java
+Level.java
+Crawler.java
+
+List.java enthaelt das vorgegebene Interface.
+
+Inventar.java implementiert das Interface List mit Hilfe der in der Vorlesung gezeigten Strukturinvariante. Die meisten
+Methoden sind aus den Folien übernommen und wurden nur leicht angepasst.
+
+-  public Item getItem(int i) überprüft, ob das übergebene i valide ist, geht rekursiv durch die Liste und verringert
+   das i jeweils um 1 bis i == 0 gilt und gibt dann das jeweilige Item zurück.
+
+-  public Inventar insert(Item x) durchlaeuft rekursiv die Liste bis kein weiteres Element mehr existiert oder
+   das Item im nachfolge Element "groesser" (compareTo()) ist und fuegt ein neues Listenelement mit dem einzufuegenden
+   Item ein.
+
+Item.java enthaelt die geforderte Implementierung fuer ein Item. Der Konstruktor item() erzeugt ein Item mit
+zufaelligen Werten, wobei der Name zufaellig aus einem Array von moeglichen Namen ausgewaehlt wird.
+
+-  public int compareTo(Object o) ueberprueft zuerst, ob der Parameter o vom Typ Item ist. Falls nicht, sind die beiden
+   Objekte nicht vergleichbar und 0 wird zurueckgegeben. Sonst verhaelt sich die compareTo Methode wie in der Aufgabe
+   gefordert. Sie gibt beim Aufruf von a.compareTo(b) eine 0, wenn a = b gibt (mathematische Relation), etwas
+   negative bei a < b und etwas positives bei a > b zurueck.
+
+Level.java wurde leicht angepasst, damit der Player beim Besiegen eines Monsters die Beute bekommt.
+
+Crawler.java wurde leicht angepasst, damit das Inventar angezeigt werden kann.
+
+Character.java enhaelt nun ein Inventar und einen Goldbetrag als Attribut sowie dazugehoerige Getter-Methoden.
+
+-  public void loot(Character corpse) pluendert den "Leichnahm" und uebertraegt hierbei das Inventar und das Gold.
+
+-  public void fillInventory() fuellt das Inventar mit bis zu 10 zufaelligen Items.
