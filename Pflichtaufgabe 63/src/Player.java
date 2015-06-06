@@ -125,7 +125,7 @@ public class Player extends Character {
     public void aperhoehen() {
         this.ap = maxAP;
     }
-    public Inventar getInventar() {
+    public Inventar<Item> getInventar() {
     	return this.inventar;
     }
     public int getGold() {

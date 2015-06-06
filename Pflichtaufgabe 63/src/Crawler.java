@@ -66,15 +66,26 @@ public class Crawler {
                 	System.out.println("\n Du triffst auf einen Händler.\n Du kannst Gegenstände kaufen<b> oder verkaufen<s>");
                 	 Scanner abfrage = new Scanner(System.in);
                      String eingabe = abfrage.nextLine();
-                     if (eingabe.equals("b")){
-                    	 m.buy(player, shop,1);
+                     if (eingabe.equals("b")) {
                     	 System.out.println(player.getGold());
-                    	
+                    	 System.out.println(shop.inventar.toString());
+                    	 System.out.println("\n Welches Item möchtest du kaufen? Bitte gib die Position in Inventar des Händlers an.");
+                    	 Scanner WhichItem = new Scanner(System.in);
+                         String a = WhichItem.nextLine();
+                         int ThisItem = Integer.parseInt(a);
+                         m.buy(player,shop,ThisItem);
+                         System.out.println(player.inventar.toString() + player.getGold());
+                    	break;
                      }
                      
                      if (eingabe.equals("s")) {
-                    	 m.sell(player, shop, 1);
+                    	 Scanner WhichItem = new Scanner(System.in);
+                         String a = WhichItem.nextLine();
+                         int ThisItem = Integer.parseInt(a);
+                         m.sell(player,shop,ThisItem);
                     	 System.out.println(player.getGold());
+                    	 System.out.println(player.inventar.toString() + player.getGold());
+                    	 break;
                      }
                 	break;
                 default:
@@ -220,7 +231,10 @@ public class Crawler {
             	
                 System.out.println("\nDu hast den Kampf gewonnen!");
                 if (!monster.inventar.isEmpty()) {
-                    player.inventar.insert(monster.inventar.getItem(1));
+                	int length = monster.inventar.length();
+                	for (int i = 0 ; i < length;i++) {
+                    player.inventar.insert(monster.inventar.getItem(i));
+                	}
                     monster.inventar.delete();
                    }
                    System.out.println("\nDu hast folgende Gegenstände im Inventar: " + player.inventar.toString());

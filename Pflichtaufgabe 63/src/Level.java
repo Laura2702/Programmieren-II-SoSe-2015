@@ -94,14 +94,31 @@ public class Level {
         player.aperhoehen();
         System.out.println("Du wurdest vollgeheilt. \n");
     }
-    public int buy(Player player,Shop shop,int i){
-    	shop.inventar.delete(player.inventar.getItem(i));
+    /**
+     * Buy :Item an Stelle i wird dem Spieler verkauft
+     * @param player
+     * @param shop
+     * @param a
+     * @return gold
+     */
+    public int buy(Player player,Shop shop,int a){
+    	shop.inventar.delete(shop.inventar.getItem(a));
+    	player.inventar.insert(shop.inventar.getItem(a));
 		
-		return player.getGold() + player.inventar.getItem(i).getValue();
+		return (int) (player.getGold() - (shop.inventar.getItem(a).getValue()*1.3));
     	
     }
+    /**
+     * Sell: Item an der Stelle i des Spielers wird an den Shop verkauft.
+     * @param player
+     * @param shop
+     * @param i
+     * @return gold
+     */
     public int sell(Player player, Shop shop,int i) {
-		return (int) (player.getGold() - (shop.inventar.getItem(i).getValue()*1.3));
+    	player.inventar.delete(player.inventar.getItem(i));
+    	shop.inventar.insert(player.inventar.getItem(i));
+		return (int) (player.getGold() + (player.inventar.getItem(i).getValue()));
 		
 		
 	}
