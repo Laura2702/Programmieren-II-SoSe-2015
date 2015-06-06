@@ -63,10 +63,10 @@ public class Crawler {
                     m.replaceFeld(m.getPlayerPositionx(), m.getPlayerPositiony(), '.');
                     break;
                 case '$':
-                	System.out.println("\n Du triffst auf einen Händler.\n Du kannst Gegenstände kaufen<b> oder verkaufen<s>");
+                	System.out.println("\n Du triffst auf einen Händler.\n Du kannst Gegenstände kaufen<buy> oder verkaufen<sell> oder mit einer beliebigen anderen Eingabe weiterziehen.");
                 	 Scanner abfrage = new Scanner(System.in);
                      String eingabe = abfrage.nextLine();
-                     if (eingabe.equals("b")) {
+                     if (eingabe.equals("buy")) {
                     	 System.out.println(player.getGold());
                     	 System.out.println(shop.inventar.toString());
                     	 System.out.println("\n Welches Item möchtest du kaufen? Bitte gib die Position in Inventar des Händlers an.");
@@ -75,19 +75,19 @@ public class Crawler {
                          int ThisItem = Integer.parseInt(a);
                          m.buy(player,shop,ThisItem);
                          System.out.println(player.inventar.toString() + player.getGold());
-                    	break;
                      }
                      
-                     if (eingabe.equals("s")) {
+                     if (eingabe.equals("sell")) {
+                    	 System.out.println(player.inventar.toString());
+                    	 System.out.println("\n Welches Item möchtest du verkaufen? Bitte gib die Position im Inventar an.");
                     	 Scanner WhichItem = new Scanner(System.in);
                          String a = WhichItem.nextLine();
                          int ThisItem = Integer.parseInt(a);
                          m.sell(player,shop,ThisItem);
                     	 System.out.println(player.getGold());
                     	 System.out.println(player.inventar.toString() + player.getGold());
-                    	 break;
                      }
-                	break;
+                break;
                 default:
                     break;
             }

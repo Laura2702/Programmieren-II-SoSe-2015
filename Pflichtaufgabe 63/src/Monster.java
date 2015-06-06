@@ -15,10 +15,10 @@ public class Monster extends Character {
      **/
     public Monster() {
         super(70, 70, 2, 0.6,new Inventar<Item>());
-        inventar.append(new Item());
-        inventar.append(new Item());
-        inventar.append(new Item());
-        inventar.append(new Item());
+        inventar.insert(new Item());
+        inventar.insert(new Item());
+        inventar.insert(new Item());
+        inventar.insert(new Item());
         this.gold = 0;
     }
     

@@ -19,6 +19,8 @@ public interface MazeGenerator {
     static final char GOAL = 'Z';
     /**Haendler*/
     static final char SHOP = '$';
+    /**Questgeber*/
+    static final char QUEST = 'Q';
     
     /**
      *  @param height gibt Hoehe an

@@ -178,15 +178,15 @@ public class Inventar<T extends Comparable<T>> implements List<T> {
 			return string.toString();
 		}
 		for (int i = 1; i < length; i++) {
-			if (item instanceof Item) {
+			if (getItem(i) instanceof Item) {
 				Item neuesItem = (Item) item;
 				string.append(i);
 				string.append(" - ");
 				string.append(((Item) getItem(i)).getName());
-				string.append(" - Händlerpreis");
-				string.append(((int) ((Item) getItem(i)).getValue() * 1.3));
+				string.append(" - Händlerpreis: ");
+				string.append((int) ((Item) getItem(i)).getValue() * 1.3);
 				string.append("\n");
-				string.append("- Verkaufswert");
+				string.append("- Verkaufswert: ");
 				string.append(((Item) getItem(i)).getValue());
 				string.append("\n");
 			} 

@@ -12,10 +12,7 @@ public class Pikagirl extends Monster {
         this.hp = hp - 60;
         this.maxHP = maxHP - 10;
         this.hitChance = hitChance + 0.1;
-        inventar.append(new Item());
-        inventar.append(new Item());
-        inventar.append(new Item());
-        inventar.append(new Item());
+    
     }
     
     /**

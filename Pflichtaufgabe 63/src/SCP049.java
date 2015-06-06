@@ -13,10 +13,7 @@ public class SCP049 extends Monster {
         this.maxHP = maxHP + 40;
         this.atk = atk - 20;
         this.hitChance = hitChance + 0.1;
-        inventar.append(new Item());
-        inventar.append(new Item());
-        inventar.append(new Item());
-        inventar.append(new Item());
+     
     }
     
     /**

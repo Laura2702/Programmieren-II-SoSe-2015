@@ -102,10 +102,11 @@ public class Level {
      * @return gold
      */
     public int buy(Player player,Shop shop,int a){
-    	shop.inventar.delete(shop.inventar.getItem(a));
+    	
     	player.inventar.insert(shop.inventar.getItem(a));
+    	shop.inventar.delete(shop.inventar.getItem(a));
 		
-		return (int) (player.getGold() - (shop.inventar.getItem(a).getValue()*1.3));
+		return player.getGold() - (int) (shop.inventar.getItem(a).getValue()*1.3);
     	
     }
     /**
@@ -116,9 +117,9 @@ public class Level {
      * @return gold
      */
     public int sell(Player player, Shop shop,int i) {
-    	player.inventar.delete(player.inventar.getItem(i));
     	shop.inventar.insert(player.inventar.getItem(i));
-		return (int) (player.getGold() + (player.inventar.getItem(i).getValue()));
+    	player.inventar.delete(player.inventar.getItem(i));
+		return player.getGold() +  player.inventar.getItem(i).getValue();
 		
 		
 	}
