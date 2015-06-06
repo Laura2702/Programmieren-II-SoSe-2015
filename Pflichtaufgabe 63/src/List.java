@@ -1,5 +1,5 @@
 
-public interface List <T extends Comparable> {
+public interface List <T extends Comparable<T>> {
 	
 
 	    /**

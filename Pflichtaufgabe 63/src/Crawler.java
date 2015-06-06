@@ -232,7 +232,7 @@ public class Crawler {
                 System.out.println("\nDu hast den Kampf gewonnen!");
                 if (!monster.inventar.isEmpty()) {
                 	int length = monster.inventar.length();
-                	for (int i = 0 ; i < length;i++) {
+                	for (int i = 1 ; i <= length; i++) {
                     player.inventar.insert(monster.inventar.getItem(i));
                 	}
                     monster.inventar.delete();

@@ -44,3 +44,6 @@ Temporary Items
 
 # Eclipse Metadata
 .metadata/
+
+# Recommender
+.recommenders/

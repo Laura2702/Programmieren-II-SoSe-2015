@@ -52,11 +52,11 @@ public class Inventar<T extends Comparable<T>> implements List<T> {
 	 *             wenn i < 0 oder i >= length()
 	 */
 	public T getItem(int i) {
-		if (i < 0 || i >= length()) {
+		if (i <= 0 || i > length()) {
 			throw new IndexOutOfBoundsException(String.format("%d / %d", i,
 					length()));
 		}
-		if (i <= 0) {
+		if (i == 1) {
 			return firstItem();
 		}
 		return next.getItem(--i);
@@ -180,15 +180,17 @@ public class Inventar<T extends Comparable<T>> implements List<T> {
 		for (int i = 1; i < length; i++) {
 			if (getItem(i) instanceof Item) {
 				Item neuesItem = (Item) item;
+				string.append("\n");
 				string.append(i);
 				string.append(" - ");
 				string.append(((Item) getItem(i)).getName());
-				string.append(" - Händlerpreis: ");
-				string.append((int) ((Item) getItem(i)).getValue() * 1.3);
-				string.append("\n");
-				string.append("- Verkaufswert: ");
+				string.append(" - ");
+				string.append((int) (((Item) getItem(i)).getValue() * 1.3));
+				string.append("G - ");
 				string.append(((Item) getItem(i)).getValue());
-				string.append("\n");
+				string.append("G - ");
+				string.append(((Item) getItem(i)).getWeight());
+				string.append("g");
 			} 
 		}
 		return string.toString();
