@@ -76,6 +76,10 @@ public class Quest implements Comparable<Quest>{
 		return result;
 	}
 
+	/**
+	 * Vergleicht zwei Objekte
+	 * @param obj zu vergleichendes Objekt(Quest)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

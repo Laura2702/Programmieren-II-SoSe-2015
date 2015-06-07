@@ -15,7 +15,9 @@ public class Item implements Comparable<Item> {
 	double weight;
 	double value;
 	
-	
+	/**
+	 * Item-Constructor
+	 */
 	public Item() {
 		Random rand = new Random();
 		int i = rand.nextInt(Crawler.itempool.length()) + 1;
@@ -23,10 +25,19 @@ public class Item implements Comparable<Item> {
 		this.weight = ((Item)Crawler.itempool.getItem(i)).weight;
 		this.value = ((Item)Crawler.itempool.getItem(i)).value;
 	}
+	/**
+	 * Item-Constructor
+	 * @param name
+	 */
 	public Item(String name) {
 		this.name = name;
 	}
-	
+	/**
+	 * Item-Constructor
+	 * @param name
+	 * @param value
+	 * @param weight
+	 */
 	public Item(String name, double value, double weight) {
 		this.name = name;
 		this.value = value;

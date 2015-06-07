@@ -7,9 +7,7 @@
  *  @version 1.1 
  */
 public class Monster extends Character {
-	
-	
-	
+    /** gold*/
 	protected int gold;
     /**
      *  Constructor setzt Werte fuer maxHP, hp, atk und hitChance
@@ -29,15 +27,20 @@ public class Monster extends Character {
     public String toString() {
         return "Monster: HP: " + this.hp + " - ATK: " + this.atk;
     }
+    /** 
+     * 
+     * @return inventar
+     */
+    public Inventar<Item> getInventar() {
+	return this.inventar;
+    }
 
-	
+    /**
+     * 
+     * @return gold
+     */
+    public int getGold() {
+	return gold;
+    }
 
-	public Inventar<Item> getInventar() {
-		// TODO Auto-generated method stub
-		return this.inventar;
-	}
-	public int getGold() {
-		return gold;
-	}
-	
 }

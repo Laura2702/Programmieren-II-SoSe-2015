@@ -13,7 +13,9 @@ public class Character {
     protected int atk;
     /** hitChance */
     protected double hitChance;
+    /** gold*/
     protected int gold;
+    /** inventar*/
     protected Inventar<Item> inventar;
     
     /**
