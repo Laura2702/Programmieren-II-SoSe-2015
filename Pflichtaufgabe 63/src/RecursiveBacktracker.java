@@ -31,6 +31,7 @@ public class RecursiveBacktracker implements MazeGenerator {
 		char[][] map = new char[width][height];
 		boolean[][] besucht = new boolean[(width - 1) / 2][(height - 1) / 2];
 		int haendler = 0;
+		int quest = 0;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (j % 2 == 0 || i % 2 == 0) {
@@ -38,9 +39,12 @@ public class RecursiveBacktracker implements MazeGenerator {
 
 				} else {
 
-					if (haendler < 2) {
-						map[i][j] = SHOP;
-						haendler++;
+					if (quest < 1) {
+						map[i][j] = QUEST;
+						quest++;
+					}else	if (haendler < 2) {
+							map[i][j] = SHOP;
+							haendler++;
 					} else {
 						int rand = (int) (Math.random() * 8);
 
@@ -52,8 +56,6 @@ public class RecursiveBacktracker implements MazeGenerator {
 							map[i][j] = WELL;
 						} else if (rand == 5) {
 							map[i][j] = SHOP;
-						} else if (rand == 6) {
-							map[i][j] = QUEST;
 						} else {
 							map[i][j] = FREE;
 						}

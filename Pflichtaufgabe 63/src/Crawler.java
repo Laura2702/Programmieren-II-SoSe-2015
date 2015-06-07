@@ -66,7 +66,6 @@ public class Crawler {
 			e.printStackTrace();
 		}
 		shop.Init();
-		System.out.println(itempool);
 
 		System.out.println("\nBitte waehle die Groesse deines Spielfeldes."
 				+ "\nDas Feld muss mind. 5x5 Felder gross sein.");

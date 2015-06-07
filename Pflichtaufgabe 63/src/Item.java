@@ -69,6 +69,9 @@ public class Item implements Comparable<Item> {
 	}
 
 	@Override
+	/**Vergleicht zwei Items anhand von name,value und weight.
+	 * 
+	 */
 	public int compareTo(Item i) {
 		if (this.getName().equals(i.getName())
 				&& this.getValue() == i.getValue()
