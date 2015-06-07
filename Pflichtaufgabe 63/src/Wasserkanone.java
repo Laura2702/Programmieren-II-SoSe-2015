@@ -2,6 +2,7 @@
  *  Der zweite Skill. Klasse Wasserkanone ist eine Unterklasse von Skill.
  *  @author Laura Pichlmeier 4753524 Gruppe 3b
  *          Sophie Duehn 4577449 Gruppe 3b
+ *          Sophie Unverzagt 4568856 Gruppe 3b
  *  @version 1.1
  */
 public class Wasserkanone extends Skill {

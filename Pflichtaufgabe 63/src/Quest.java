@@ -2,7 +2,7 @@
  * Die Klasse Quest erzeugt eine Quest
  * 
  * @author Sophie Duehn 4577449 Gruppe 3b
- * @author Laura Pichlmeier         Gruppe 3b
+ * @author Laura Pichlmeier 4573524 Gruppe 3b
  * @author Sophie Unverzagt 4568856 Gruppe 3b
  * @version 1.1
  */

@@ -3,6 +3,7 @@
  *
  *  @author Laura Pichlmeier 4753524 Gruppe 3b
  *  @author Sophie Duehn 4577449 Gruppe 3b
+ *  @author Sophie Unverzagt 4568856 Gruppe 3b
  *  @version 1.1 
  */
 public class Monster extends Character {

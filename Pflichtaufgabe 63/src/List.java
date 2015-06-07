@@ -1,4 +1,11 @@
-
+/** Listeninterface
+ * 
+ * @author Laura Pichlmeier 4573524 Gruppe 3b
+ * @author Sophie Duehn 4577449 Gruppe 3b
+ * @author Sophie Unverzagt 4568856 Gruppe 3b
+ *
+ * @param <T>
+ */
 public interface List <T extends Comparable<T>> {
 	
 

@@ -2,6 +2,7 @@
  *  Die Klasse Level erzeugt ein Level
  *  @author Laura Pichlmeier 4573524 Gruppe 3b
  *  @author Sophie Duehn 4577449 Gruppe 3b
+ *  @author Sophie Unverzagt 4568856 Gruppe 3b
  **/
 public class Level {
     /** 2D - Array */ 
