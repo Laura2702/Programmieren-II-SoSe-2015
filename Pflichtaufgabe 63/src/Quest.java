@@ -7,13 +7,20 @@
  * @version 1.1
  */
 public class Quest implements Comparable<Quest>{
+	/** Name */
 	String name;
+	/** Vorquest */
 	String prequest;
+	/** Anzahl */
 	int quantity;
+	/** Item */
 	String item;
+	/** Erledigt */
 	boolean erledigt;
+	/** angenommen */
 	boolean angenommen;
-
+	
+	/** Quest Constructor */
 	public Quest(String name, String prequest, String item, int quantity) {
 		this.name = name;
 		this.prequest = prequest;

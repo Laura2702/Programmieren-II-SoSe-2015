@@ -10,9 +10,11 @@ import java.util.Random;
  */
 
 public class Item implements Comparable<Item> {
-
+	/** name */
 	String name;
+	/** Gewicht */
 	double weight;
+	/** Wert */
 	double value;
 	
 	/**
