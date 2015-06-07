@@ -1,8 +1,10 @@
 /**
  * The type Inventar.
+ * 
+ * @author Sophie Duehn 4577449 Gruppe 3b
+ * @author Laura Pichlmeier         Gruppe 3b
+ * @author Sophie Unverzagt 4568856 Gruppe 3b
  *
- * @author Max Mustermann 1234567 Gruppe 42z
- * @author Erika Musterfrau 1234567 Gruppe 42z
  */
 public class Inventar<T extends Comparable<T>> implements List<T> {
 

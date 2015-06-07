@@ -1,5 +1,14 @@
 import java.util.Random;
 
+/**
+ * Dies ist Pflichtaufgabe 63.
+ * 
+ * @author Sophie Duehn 4577449 Gruppe 3b
+ * @author Laura Pichlmeier         Gruppe 3b
+ * @author Sophie Unverzagt 4568856 Gruppe 3b
+ * @version 1.1
+ */
+
 public class Item implements Comparable<Item> {
 
 	String name;
@@ -24,19 +33,32 @@ public class Item implements Comparable<Item> {
 		this.weight = weight;
 
 	}
-
+	/**
+	 * Gets Name
+	 * @return name.
+	 */
 	public String getName() {
 		return name;
 	}
-
+	/**
+	 * Gets Weight
+	 * @return weight.
+	 */
 	public double getWeight() {
 		return weight;
 	}
-
+	/**
+	 * Gets Value
+	 * @return value.
+	 */
 	public double getValue() {
 		return value;
 	}
-
+	/**
+	 * Vergleicht die Namen von Items
+	 * @return true, wenn Namen gleich sind
+	 * @return false, wenn nicht.
+	 */
 	public boolean equals(Object obj) {
 		Item i = (Item) obj;
 		if (i.name.equals(this.name)) {
