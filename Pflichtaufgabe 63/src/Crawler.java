@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Dies ist Pflichtaufgabe 63.
  * 
  * @author Sophie Duehn 4577449 Gruppe 3b
- * @author Laura Pichlmeier         Gruppe 3b
+ * @author Laura Pichlmeier Gruppe 3b
  * @author Sophie Unverzagt 4568856 Gruppe 3b
  * @version 1.1
  */
@@ -31,7 +31,9 @@ public class Crawler {
 		int x = 1;
 		int y = 1;
 		BufferedReader br;
-
+		/**
+		 * liest .csv Dateien ein
+		 */
 		try {
 			br = Files.newBufferedReader(Paths.get("item.csv"));
 			String line = null;
@@ -157,7 +159,7 @@ public class Crawler {
 
 					for (int i = 1; i <= questpool.length(); i++) {
 						boolean vorquesterledigt = false;
-						if(questpool.getItem(i).prequest.isEmpty()){
+						if (questpool.getItem(i).prequest.isEmpty()) {
 							vorquesterledigt = true;
 						}
 						for (int j = 1; j <= questpool.length(); j++) {
@@ -168,10 +170,11 @@ public class Crawler {
 								}
 							}
 						}
-						if ( !questpool.getItem(i).getErledigt()
+						if (!questpool.getItem(i).getErledigt()
 								&& vorquesterledigt
-								&&!questpool.getItem(i).getAngenommen()) {
-							System.out.println(i+" - "+questpool.getItem(i));
+								&& !questpool.getItem(i).getAngenommen()) {
+							System.out
+									.println(i + " - " + questpool.getItem(i));
 						}
 					}
 					System.out.println("Welche Quest möchtest du annehmen?");
@@ -181,9 +184,10 @@ public class Crawler {
 					questpool.getItem(diesequest).setAngenommen(true);
 				}
 				if (b.equals("ab")) {
-					for(int i=1; i <= questpool.length();i++){
-						if(questpool.getItem(i).getAngenommen()){
-							System.out.println(i+" - "+questpool.getItem(i));
+					for (int i = 1; i <= questpool.length(); i++) {
+						if (questpool.getItem(i).getAngenommen()) {
+							System.out
+									.println(i + " - " + questpool.getItem(i));
 						}
 					}
 					System.out.println("Welche Quest möchtest du abgeben?");
@@ -191,43 +195,47 @@ public class Crawler {
 					String dq = questfrage.nextLine();
 					int diesequest = Integer.parseInt(dq);
 					int counter = 0;
-					for(int i = 1;i <= player.inventar.length();i++){
-						if(player.inventar.getItem(i).getName().equals(questpool.getItem(diesequest).item)){
+					for (int i = 1; i <= player.inventar.length(); i++) {
+						if (player.inventar.getItem(i).getName()
+								.equals(questpool.getItem(diesequest).item)) {
 							counter++;
 						}
 					}
 					if (counter >= questpool.getItem(diesequest).quantity) {
-						for(int i=1;i <= questpool.getItem(diesequest).quantity;i++){
-							Item deletable = new Item(questpool.getItem(diesequest).item);
+						for (int i = 1; i <= questpool.getItem(diesequest).quantity; i++) {
+							Item deletable = new Item(
+									questpool.getItem(diesequest).item);
 							player.inventar.delete(deletable);
 						}
-						
+
 						questpool.getItem(diesequest).setAngenommen(false);
 						questpool.getItem(diesequest).setErledigt(true);
-						System.out.println("Du hast die Quest erfolgreich abgeschlossen.");
+						System.out
+								.println("Du hast die Quest erfolgreich abgeschlossen.");
 					} else {
 						System.out.println("Du hast nicht genug Items!");
 					}
-					
 
 				}
 			default:
 				break;
 			}
 			if (m.zielfeld()) {
-				boolean finished= true;
-				for(int i = 1;i <= questpool.length();i++){
+				boolean finished = true;
+				for (int i = 1; i <= questpool.length(); i++) {
 					finished = finished && questpool.getItem(i).getErledigt();
 				}
 				if (finished) {
 					break;
 				} else {
-					System.out.println("Du hast noch nicht alle Quests abgeschlossen.");
+					System.out
+							.println("Du hast noch nicht alle Quests abgeschlossen.");
 				}
 			}
 		}
 		if (m.zielfeld()) {
-			System.out.println("\nHerzlichen Glueckwunsch! Du hast das Spiel gewonnen.");
+			System.out
+					.println("\nHerzlichen Glueckwunsch! Du hast das Spiel gewonnen.");
 		} else {
 			System.out.println("\nGame Over. Du bist leider gestorben.");
 		}
