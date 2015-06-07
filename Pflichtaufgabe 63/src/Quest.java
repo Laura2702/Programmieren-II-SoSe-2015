@@ -1,3 +1,11 @@
+/**
+ * Die Klasse Quest erzeugt eine Quest
+ * 
+ * @author Sophie Duehn 4577449 Gruppe 3b
+ * @author Laura Pichlmeier         Gruppe 3b
+ * @author Sophie Unverzagt 4568856 Gruppe 3b
+ * @version 1.1
+ */
 public class Quest implements Comparable<Quest>{
 	String name;
 	String prequest;
@@ -16,18 +24,41 @@ public class Quest implements Comparable<Quest>{
 		
 	}
 
+	/**
+	 * Gets Quantity
+	 * @return quantity.
+	 */
 	public int getQuantity() {
 		return this.quantity;
 	}
+	/**
+	 * Gets Name
+	 * @return name.
+	 */
+	
 	public String getName() {
 		return name;
 	}
+	/**
+	 * Gets Prequest
+	 * @return prequest.
+	 */
+	
 	public String getPrequest() {
 		return prequest;
 	}
+	/**
+	 * Gets Item
+	 * @return item.
+	 */
+	
 	public String getItem() {
 		return item;
 	}
+	/**
+	 * Gets Erledigt
+	 * @return erledigt.
+	 */
 	public boolean getErledigt() {
 		return erledigt;
 	}
@@ -77,18 +108,33 @@ public class Quest implements Comparable<Quest>{
 			return false;
 		return true;
 	}
-
+	/**
+	 * Gets Angenommen
+	 * @return angenommen.
+	 */
 	public boolean getAngenommen() {
 		return angenommen;
 	}
+	/**
+	 * Sets Erledigt
+	 * @return erledigt.
+	 */
 	public void setErledigt(boolean erledigt) {
 		this.erledigt = erledigt;
 		
 	}
+	/**
+	 * Sets Angenommen
+	 * @return angenommen.
+	 */
 	public void setAngenommen(boolean angenommen) {
 		this.angenommen = angenommen;
 		
 	}
+	/**
+	 * Erzeugt String
+	 * @return ein string.
+	 */
 	public String toString() {
 		StringBuilder string = new StringBuilder();
 		string.append(name);
@@ -101,7 +147,10 @@ public class Quest implements Comparable<Quest>{
 		return string.toString();
 	}
 
-
+	/**
+	 * Leere compareTo Methode
+	 * @return 0.
+	 */
 	@Override
 	public int compareTo(Quest arg0) {
 		// TODO Auto-generated method stub
