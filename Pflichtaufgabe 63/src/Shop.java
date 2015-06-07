@@ -16,7 +16,7 @@ public class Shop extends Character {
 		
 	}
 	/**
-	 * Initialisierung des Shops:Shop wird mit Items gefüllt
+	 * Initialisierung des Shops: Shop wird mit Items gefüllt
 	 */
 	public  void Init() {
 		

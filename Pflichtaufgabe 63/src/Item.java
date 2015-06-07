@@ -35,7 +35,6 @@ public class Item implements Comparable<Item> {
 		this.name = name;
 	}
 	/**
-	 * Item-Constructor
 	 * @param name
 	 * @param value
 	 * @param weight
