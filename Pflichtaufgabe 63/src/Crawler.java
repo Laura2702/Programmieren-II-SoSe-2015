@@ -13,15 +13,16 @@ import java.util.Scanner;
  * @version 1.1
  */
 public class Crawler {
-
+    /** itempool: alle Items */
+    public static Inventar<Item> itempool = new Inventar<Item>();
+    /** questpool: alle Quests */
+    public static Inventar<Quest> questpool = new Inventar<Quest>();
     /** player */
     private static Player player = new Player();
     /** shop (Haendler) */
     private static Shop shop = new Shop();
     /** itempool: alle Items */
-    public static Inventar<Item> itempool = new Inventar<Item>();
-    /** questpool: alle Quests */
-    public static Inventar<Quest> questpool = new Inventar<Quest>();
+
 
     /**
      * Spieler und Map werden erstellt Solange der Spieler nicht "tot" ist und
