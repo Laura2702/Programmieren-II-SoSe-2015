@@ -177,7 +177,7 @@ public class Inventar<T extends Comparable<T>> implements List<T> {
 			string.append("Inventar ist leer.");
 			return string.toString();
 		}
-		for (int i = 1; i < length; i++) {
+		for (int i = 1; i <= length; i++) {
 			if (getItem(i) instanceof Item) {
 				Item neuesItem = (Item) item;
 				string.append("\n");
@@ -191,6 +191,19 @@ public class Inventar<T extends Comparable<T>> implements List<T> {
 				string.append("G - ");
 				string.append(((Item) getItem(i)).getWeight());
 				string.append("g");
+			} 
+			if (getItem(i) instanceof Quest) {
+				Quest neueQuest = (Quest) item;
+				string.append("\n");
+				string.append(i);
+				string.append(" - ");
+				string.append(((Quest) getItem(i)).getName());
+				string.append(" - ");
+				string.append(((Quest) getItem(i)).getPrequest());
+				string.append(" - ");
+				string.append(((Quest) getItem(i)).getItem());
+				string.append(" - ");
+				string.append(((Quest) getItem(i)).getQuantity());
 			} 
 		}
 		return string.toString();

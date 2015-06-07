@@ -99,15 +99,12 @@ public class Level {
      * @param player
      * @param shop
      * @param a
-     * @return gold
      */
-    public int buy(Player player,Shop shop,int a){
+    public void buy(Player player,Shop shop,int a){
     	
     	player.inventar.insert(shop.inventar.getItem(a));
+    	player.setGold(player.getGold() - shop.inventar.getItem(a).getValue()*1.3);
     	shop.inventar.delete(shop.inventar.getItem(a));
-		
-		return player.getGold() - (int) (shop.inventar.getItem(a).getValue()*1.3);
-    	
     }
     /**
      * Sell: Item an der Stelle i des Spielers wird an den Shop verkauft.
@@ -116,12 +113,10 @@ public class Level {
      * @param i
      * @return gold
      */
-    public int sell(Player player, Shop shop,int i) {
+    public void sell(Player player, Shop shop,int i) {
     	shop.inventar.insert(player.inventar.getItem(i));
+    	player.setGold(player.getGold() +  player.inventar.getItem(i).getValue());
     	player.inventar.delete(player.inventar.getItem(i));
-		return player.getGold() +  player.inventar.getItem(i).getValue();
-		
-		
 	}
     /**
      *  @return playerPositionx

@@ -21,7 +21,7 @@ public class Player extends Character {
     /** skills */
     private Skill[] skills;
     
-    private int gold;
+    private double gold;
     
         
     /**
@@ -128,7 +128,10 @@ public class Player extends Character {
     public Inventar<Item> getInventar() {
     	return this.inventar;
     }
-    public int getGold() {
+    public double getGold() {
     	return this.gold;
+    }
+    public void setGold(double gold) {
+    	this.gold = gold;
     }
 }

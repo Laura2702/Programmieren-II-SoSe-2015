@@ -1,18 +1,24 @@
+import java.util.Random;
 
 public class Item implements Comparable<Item> {
 
 	String name;
-	int weight;
-	int value;
-
+	double weight;
+	double value;
+	
+	
 	public Item() {
-		this.name = Integer.toString((int) (Math.random() * (500 - 0) + 0));
-		this.weight = (int) (Math.random() * (50 - 1) + 1);
-		this.value = (int) (Math.random() * (100 - 1) + 1);
-
+		Random rand = new Random();
+		int i = rand.nextInt(Crawler.itempool.length()) + 1;
+		this.name = ((Item)Crawler.itempool.getItem(i)).name;
+		this.weight = ((Item)Crawler.itempool.getItem(i)).weight;
+		this.value = ((Item)Crawler.itempool.getItem(i)).value;
 	}
-
-	public Item(String name, int value, int weight) {
+	public Item(String name) {
+		this.name = name;
+	}
+	
+	public Item(String name, double value, double weight) {
 		this.name = name;
 		this.value = value;
 		this.weight = weight;
@@ -23,18 +29,17 @@ public class Item implements Comparable<Item> {
 		return name;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
 	public boolean equals(Object obj) {
 		Item i = (Item) obj;
-		if (i.name == this.name && i.value == this.value
-				&& i.weight == this.weight) {
+		if (i.name.equals(this.name)) {
 			return true;
 		} else {
 			return false;
