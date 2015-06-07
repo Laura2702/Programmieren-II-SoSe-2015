@@ -24,8 +24,9 @@ public class Character {
      *  @param hp hp
      *  @param atk atk
      *  @param hitChance hitChance
+     *  @param inventar inventar
      **/
-    public Character(int maxHP, int hp, int atk, double hitChance,Inventar<Item> inventar) {
+    public Character(int maxHP, int hp, int atk, double hitChance, Inventar<Item> inventar) {
         this.maxHP = maxHP;
         this.hp = hp;
         this.atk = atk;

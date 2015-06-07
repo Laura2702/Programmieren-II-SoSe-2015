@@ -7,24 +7,23 @@
  * 
  */
 public class Shop extends Character {
-	/**
-	 * Shop-Constructor
-	 * 
-	 */
-	public Shop() {
-		super(1000,1000,500,0.9,new Inventar<Item>());
-		
-	}
-	/**
-	 * Initialisierung des Shops: Shop wird mit Items gefüllt
-	 */
-	public  void Init() {
-		
-		inventar.insert(new Item());
-		inventar.insert(new Item());
-		inventar.insert(new Item());
-	}
-	
+    /**
+     * Shop-Constructor
+     * 
+     */
+    public Shop() {
+        super(1000, 1000, 500, 0.9, new Inventar<Item>());
 
+    }
+
+    /**
+     * Initialisierung des Shops: Shop wird mit Items gefüllt
+     */
+    public void init() {
+
+        inventar.insert(new Item());
+        inventar.insert(new Item());
+        inventar.insert(new Item());
+    }
 
 }

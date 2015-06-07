@@ -1,12 +1,11 @@
 /**
- *  Die Klasse Player ist eine Klasse von Objekten mit den Eigenschaften
- *  hp, maxHP, atk, healingPower, hitChance, remainingItemUses, ap, maxAP,
- *  apRegen und einer Anzahl an Skills (skills).
+ * Die Klasse Player ist eine Klasse von Objekten mit den Eigenschaften hp,
+ * maxHP, atk, healingPower, hitChance, remainingItemUses, ap, maxAP, apRegen
+ * und einer Anzahl an Skills (skills).
  *
- *  @author Laura Pichlmeier 4753524 Gruppe 3b
- *          Sophie Duehn 4577449 Gruppe 3b
- *          Sophie Unverzagt 4568856 Gruppe 3b
- *  @version 1.1 
+ * @author Laura Pichlmeier 4753524 Gruppe 3b Sophie Duehn 4577449 Gruppe 3b
+ *         Sophie Unverzagt 4568856 Gruppe 3b
+ * @version 1.1
  */
 public class Player extends Character {
     /** healingPower */
@@ -21,15 +20,14 @@ public class Player extends Character {
     private int apRegen;
     /** skills */
     private Skill[] skills;
-    
+    /** gold */
     private double gold;
-    
-        
+
     /**
-     *  Player-Constructor:
+     * Player-Constructor:
      **/
     public Player() {
-        super(200, 200, 40, 0.7,new Inventar<Item>());
+        super(200, 200, 40, 0.7, new Inventar<Item>());
         this.healingPower = 100;
         this.remainingItemUses = 3;
         this.maxAP = 250;
@@ -39,13 +37,15 @@ public class Player extends Character {
         this.skills[0] = new Feuerball();
         this.skills[1] = new Wasserkanone();
         this.skills[2] = new Stampfer();
-        
+
         this.gold = 0;
     }
 
     /**
-     *  Berechnet die AP, die nach dem Benutzen eines Skills noch vorhanden sind.
-     *  @param value Wert von AP, die abgezogen werden
+     * Berechnet die AP, die nach dem Benutzen eines Skills noch vorhanden sind.
+     * 
+     * @param value
+     *            Wert von AP, die abgezogen werden
      */
     public void useAP(int value) {
         if (this.ap - value < 0) {
@@ -54,24 +54,23 @@ public class Player extends Character {
             this.ap = this.ap - value;
         }
     }
-    
 
-    
     /**
-     *  @return Anzahl der verbleibenden Heiltraenke
+     * @return Anzahl der verbleibenden Heiltraenke
      */
     public int getRemainingItemUses() {
         return this.remainingItemUses;
     }
-    
+
     /**
-     *  Heilt den Player, um den Wert 100, wenn genuegend Traenke vorhanden sind.
-     *  @return true, wenn Player erfolgreich geheilt wurde
+     * Heilt den Player, um den Wert 100, wenn genuegend Traenke vorhanden sind.
+     * 
+     * @return true, wenn Player erfolgreich geheilt wurde
      */
     public boolean heal() {
         if ((this.remainingItemUses > 0) && (this.hp < this.maxHP)) {
             this.hp = this.hp + this.healingPower;
-            
+
             if (this.hp > this.maxHP) {
                 this.hp = this.maxHP;
             }
@@ -81,18 +80,20 @@ public class Player extends Character {
             return false;
         }
     }
- 
+
     /**
-     *  @return Gibt aktuelle HP-, ATK-, Item-, AP-Anzahl aus.
+     * @return Gibt aktuelle HP-, ATK-, Item-, AP-Anzahl aus.
      */
     public String toString() {
-        return "Player: HP: " + this.hp + " - ATK: " + this.atk + "\n        Items: " 
-            + this.remainingItemUses + " AP: " + this.ap;
+        return "Player: HP: " + this.hp + " - ATK: " + this.atk
+                + "\n        Items: " + this.remainingItemUses + " AP: "
+                + this.ap;
     }
-    
+
     /**
-     *  regeneriert AP
-     *  @return regenerierte AP
+     * regeneriert AP
+     * 
+     * @return regenerierte AP
      */
     public int regenerateAp() {
         if (this.ap + this.apRegen <= this.maxAP) {
@@ -104,35 +105,48 @@ public class Player extends Character {
             return result;
         }
     }
-    
+
     /**
-     *  @param index Index des Skills
-     *  @return Skill
+     * @param index
+     *            Index des Skills
+     * @return Skill
      */
     public Skill getSkill(int index) {
         return this.skills[index];
     }
-    
+
     /**
-     *  @return AP
+     * @return AP
      */
     public int getAp() {
         return this.ap;
     }
-    
+
     /**
-     *  AP werden auf maxAP gesetzt
+     * AP werden auf maxAP gesetzt
      **/
     public void aperhoehen() {
         this.ap = maxAP;
     }
+    /**
+     * aktuelles inventar
+     * @return inventar
+     */
     public Inventar<Item> getInventar() {
-    	return this.inventar;
+        return this.inventar;
     }
+   /**
+    * aktuelles gold
+    * @return gold
+    */
     public double getGold() {
-    	return this.gold;
+        return this.gold;
     }
+    /**
+     * setzt das aktuelle gold auf das angegebene gold
+     * @param gold
+     */
     public void setGold(double gold) {
-    	this.gold = gold;
+        this.gold = gold;
     }
 }
