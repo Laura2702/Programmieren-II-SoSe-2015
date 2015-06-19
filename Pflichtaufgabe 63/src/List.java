@@ -68,15 +68,7 @@ public interface List<T extends Comparable<T>> {
      *            das Item
      * @return die geaenderte Liste
      */
-    List<T> append(T x);
-
-    /**
-     * Loescht das erste vorkommen des Items x
-     *
-     * @param x
-     *            das Item
-     * @return die geanderte Liste
-     */
+   
     List<T> delete(T x);
 
     /**
