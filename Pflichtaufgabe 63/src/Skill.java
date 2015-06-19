@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  *  Die Klasse Skill ist eine Klasse fuer Faehigkeiten.
  *  @author Laura Pichlmeier 4753524 Gruppe 3b
  *          Sophie Duehn 4577449 Gruppe 3b
  *  @version 1.0
  */
-public class Skill {
+public class Skill implements Serializable {
     /** Name des Skills */
     private String name;
     /** AP Kosten */

@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * Die Klasse Inventar.
  * 
@@ -6,7 +8,7 @@
  * @author Sophie Unverzagt 4568856 Gruppe 3b
  * @param <T>
  */
-public class Inventar<T extends Comparable<T>> implements List<T> {
+public class Inventar<T extends Comparable<T>> implements List<T>,Serializable {
 
     /**
      * The Item.

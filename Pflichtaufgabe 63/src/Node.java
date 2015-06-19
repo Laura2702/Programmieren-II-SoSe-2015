@@ -3,30 +3,48 @@ public class Node {
 	Node rechts;
 	Node parent;
 	Integer inhalt;
+	int depth = 0;
 	int height = 0;
 
-	public void insert(Integer x, int height) {
+	public int height() {
+		int z = 0;
+		if (hatlinkesKind() && hatrechtesKind()) {
+			z = Math.max(links.height(), rechts.height());
+		} else if (hatlinkesKind()) {
+			z = links.height();
+		} else if (hatrechtesKind()) {
+			z = rechts.height();
+		}
+		return z + 1;
+
+	}
+
+	public void insert(Integer x, int depth) {
 		if (isEmpty()) {
 			inhalt = x;
 			return;
 		}
 		if (x < inhalt) {
 			// links
-			if (links == null) {
+			if (!hatlinkesKind()) {
 				links = new Node();
-				links.height = height;
+				links.depth = depth;
 			}
 			links.parent = this;
-			links.insert(x, ++height);
+			links.insert(x, ++depth);
+			links.height = links.height();
 		} else {
 			// Fall rechts
-			if (rechts == null) {
+			if (!hatrechtesKind()) {
 				rechts = new Node();
-				rechts.height = height;
+				rechts.depth = depth;
 			}
 			rechts.parent = this;
-			rechts.insert(x, ++height);
+			rechts.insert(x, ++depth);
+			rechts.height = rechts.height();
+
 		}
+		this.height = height();
 	}
 
 	public boolean isEmpty() {
@@ -41,13 +59,13 @@ public class Node {
 			if (x == inhalt) {
 				drin = true;
 			} else if (x < inhalt) {
-				if (x < inhalt && links == null) {
+				if (x < inhalt && !hatlinkesKind()) {
 					drin = false;
 				} else {
 					links.contains(x);
 				}
 			} else if (x > inhalt) {
-				if (x > inhalt && rechts == null) {
+				if (x > inhalt && !hatrechtesKind()) {
 					drin = false;
 				} else {
 					rechts.contains(x);
@@ -63,26 +81,30 @@ public class Node {
 		}
 		if (x == inhalt) {
 			// keine Kinder
-			if (links == null && rechts == null) {
+			if (!hatlinkesKind() && !hatrechtesKind()) {
 				if (this == parent) {
 					inhalt = null;
 					return;
 				}
-				if (parent.links != null) {
+				if (parent.hatlinkesKind()) {
 					if (parent.links == this) {
 						parent.links = null;
+						//updateToRoot(parent);
+						parent.height = parent.height();
 						return;
 					}
-				} else if (parent.rechts != null) {
+				} else if (parent.hatrechtesKind()) {
 					if (parent.rechts == this) {
 						parent.rechts = null;
+						//updateToRoot(parent);
+						parent.height = parent.height();
 						return;
 					}
 				}
 			}
 			// linkes Kind
-			if (hatlinkesKind() && rechts == null) {
-				if (this == parent) {
+			if (hatlinkesKind() && !hatrechtesKind()) {
+				if (this == parent) { //im wurzelknoten
 					inhalt = links.inhalt;
 					if (links.hatrechtesKind()) {
 						rechts = links.rechts;
@@ -91,28 +113,34 @@ public class Node {
 					if (links.hatlinkesKind()) {
 						links.links.parent = this;
 					}
+					links.depth--;//maybe useless
 					links = links.links;
-					links.height--;
+					this.height=height();
+					links.height = links.height();
 					return;
 				}
-				if (parent.links != null) {
+				if (parent.hatlinkesKind()) { //ich bin das linke kind.
 					if (parent.links == this) {
 						links.parent = parent;
 						parent.links = links;
-						links.height--;
+						links.depth--;
+						//updateToRoot(parent);
+						parent.height = parent.height();
 						return;
 					}
-				} else if (parent.rechts != null) {
+				} else if (parent.hatrechtesKind()) {
 					if (parent.rechts == this) {
 						links.parent = parent;
 						parent.rechts = links;
-						links.height--;
+						links.depth--;
+						//updateToRoot(parent);
+						parent.height = parent.height();
 						return;
 					}
 				}
 			}
 			// rechtes Kind
-			if (links == null && hatrechtesKind()) {
+			if (!hatlinkesKind() && hatrechtesKind()) {
 				if (this == parent) {
 					inhalt = rechts.inhalt;
 					if (rechts.hatlinkesKind()) {
@@ -123,67 +151,78 @@ public class Node {
 						rechts.rechts.parent = this;
 					}
 					rechts = rechts.rechts;
-					rechts.height--;
+					rechts.depth--;
+					this.height=height();
+					rechts.height = rechts.height();
 					return;
 				}
-				if (parent.links != null) {
+				if (parent.hatlinkesKind()) {
 					if (parent.links == this) {
 						rechts.parent = parent;
 						parent.links = rechts;
-						rechts.height--;
+						rechts.depth--;
+						//updateToRoot(parent);
+						parent.height = parent.height();
 						return;
 					}
-				} else if (parent.rechts != null) {
+				} else if (parent.hatrechtesKind()) {
 					if (parent.rechts == this) {
 						rechts.parent = parent;
 						parent.rechts = rechts;
-						rechts.height--;
+						rechts.depth--;
+						//updateToRoot(parent);
+						parent.height = parent.height();
 						return;
 					}
 				}
 			}
 			// 2 Kinder
 			if (hatlinkesKind() && hatrechtesKind()) {
-				if (rechts.links == null) {
-					if (rechts.rechts == null) {
+				if (!rechts.hatlinkesKind()) {
+					if (!rechts.hatrechtesKind()) {
 						inhalt = rechts.inhalt;
 						rechts = null;
-						rechts.height--;
 						return;
 					} else {
 						inhalt = rechts.inhalt;
 						rechts.rechts.parent = this;
 						rechts = rechts.rechts;
-						rechts.height--;
+						parent.height=height();
+						rechts.height = rechts.height();
 						return;
 					}
 				} else {
 					Node lmc = leftMostChild(rechts);
-					if (lmc.rechts == null) {
+					if (!lmc.hatrechtesKind()) {
 						inhalt = lmc.inhalt;
 						lmc.parent.links = null;
+						//updateToRoot(lmc.parent);
+						lmc.parent.height = lmc.parent.height();
 						return;
 					} else {
 						inhalt = lmc.inhalt;
 						lmc.rechts.parent = lmc.parent;
 						lmc.parent.links = lmc.rechts;
-						lmc.rechts.height--;
+						//updateToRoot(lmc.parent);
+						lmc.parent.height = lmc.parent.height();
 						return;
 					}
 				}
 			}
 		} else if (x < inhalt) {
-			if (x < inhalt && links == null) {
+			if (x < inhalt && !hatlinkesKind()) {
 				return;
 			} else {
 				links.delete(x);
+				height=height();
 			}
 		} else if (x > inhalt) {
-			if (x > inhalt && rechts == null) {
+			if (x > inhalt && !hatrechtesKind()) {
 				return;
 			} else {
 				rechts.delete(x);
-			}
+				height=height();
+			}	
 		}
 	}
 
@@ -195,7 +234,7 @@ public class Node {
 
 		b += inhalt + "[" + height + "] ";
 		if (klammern)
-			 b += "(";
+			b += "(";
 		if (hatlinkesKind()) {
 			b += links.toString();
 		}
@@ -220,13 +259,22 @@ public class Node {
 
 	public Node leftMostChild(Node start) {
 		Node tmp = start;
-		while (tmp.links != null) {
+		while (tmp.hatlinkesKind()) {
 			tmp = tmp.links;
 		}
 		return tmp;
 	}
-	
-/*	public boolean balanciert()	{
-	}*/
-	
+
+	public void updateToRoot(Node n){
+		Node temp = n;
+		temp.height = height();
+		while (temp.parent != temp) {
+			temp = temp.parent;
+			temp.height = height();
+		}
+	}
+	/*
+	 * public boolean balanciert() { }
+	 */
+
 }

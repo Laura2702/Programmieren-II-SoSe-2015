@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * Die Klasse Quest erzeugt eine Quest
  * 
@@ -6,7 +8,7 @@
  * @author Sophie Unverzagt 4568856 Gruppe 3b
  * @version 1.1
  */
-public class Quest implements Comparable<Quest> {
+public class Quest implements Comparable<Quest>,Serializable {
     /** Name */
     String name;
     /** Vorquest */

@@ -1,5 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -17,10 +21,12 @@ public class Crawler {
     public static Inventar<Item> itempool = new Inventar<Item>();
     /** questpool: alle Quests */
     public static Inventar<Quest> questpool = new Inventar<Quest>();
+    private static String SAVE_GAME ="save.ser";
     /** player */
     private static Player player = new Player();
     /** shop (Haendler) */
     private static Shop shop = new Shop();
+    
     /** itempool: alle Items */
 
 
@@ -87,6 +93,19 @@ public class Crawler {
         char[][] mapData = gen.generate(xGroesse, yGroesse);
 
         Level m = new Level(mapData);
+        Scanner k =new Scanner(System.in);
+        System.out.println("Soll das Spiel geladen werden j/n");
+        if(k.nextLine().equals("j")){
+        	try{
+        		FileInputStream fileInputStream= new FileInputStream(SAVE_GAME);
+        		ObjectInputStream objectInputStream =new ObjectInputStream(fileInputStream);
+        		player= (Player) objectInputStream.readObject();
+        		objectInputStream.close();
+        	} catch (IOException | ClassNotFoundException e){
+        	System.out.println("Das Spiel konnte nicht geladen werden. Neues Spiel wird gestartet.");	
+        		
+        	}
+        }
         System.out
                 .println("\nDu bist in einer geheimnisvollen Welt gelandet.\n"
                         + "In dieser gibt es Schmieden <T> und Heilbrunnen <O>.\n"
@@ -296,6 +315,17 @@ public class Crawler {
         if (eingabe.equals("i")) {
             System.out.println(player.inventar.toString());
 
+        }
+        if(eingabe.equals("z")){
+        	try {
+        	FileOutputStream fileOutputStream = new FileOutputStream(SAVE_GAME);
+        	ObjectOutputStream objectOutputStream =new ObjectOutputStream(fileOutputStream);
+        	objectOutputStream.writeObject(player);
+        	fileOutputStream.flush();
+        	fileOutputStream.close();
+        	} catch (IOException e){
+        		System.out.println("Konnte das Spiel nicht speichern.");
+        	}
         }
     }
 

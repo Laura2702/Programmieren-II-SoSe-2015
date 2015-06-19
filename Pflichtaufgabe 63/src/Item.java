@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Random;
  * @version 1.1
  */
 
-public class Item implements Comparable<Item> {
+public class Item implements Comparable<Item>,Serializable{
     /** name */
     String name;
     /** Gewicht */

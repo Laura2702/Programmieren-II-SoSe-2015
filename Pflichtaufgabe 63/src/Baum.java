@@ -14,7 +14,11 @@ public class Baum {
 		b.insert(4);
 		
 		b.toString();
-		System.out.println(b.contains(50));
+		System.out.println(b.root.height());
+		System.out.println(b.root.links.height());
+		System.out.println(b.root.rechts.height());
+		System.out.println(b.root.rechts.links.height());
+		System.out.println(b.root.rechts.links.links.height());
 		b.delete(5);
 		b.toString();
 	}
