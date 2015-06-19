@@ -7,9 +7,11 @@ public class Baum {
 		//b.insert(20);
 		//b.insert(15);
 		b.insert(5);
-		b.insert(7);
-		b.insert(8);
+		b.insert(15);
+		b.insert(10);
 		b.insert(6);
+		b.insert(7);
+		b.insert(4);
 		
 		b.toString();
 		System.out.println(b.contains(50));
@@ -20,6 +22,7 @@ public class Baum {
 	public Baum() {
 		root = new Node();
 		root.parent = root;
+		
 	}
 
 	public String toString() {
@@ -27,7 +30,7 @@ public class Baum {
 	}
 
 	public void insert(Integer x) {
-		root.insert(x);
+		root.insert(x, 1);
 	}
 
 	public boolean isEmpty() {
