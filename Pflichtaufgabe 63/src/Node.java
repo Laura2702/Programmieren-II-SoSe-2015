@@ -310,16 +310,7 @@ public class Node {
 		}
 
 	}
-	public void rotation(){
-		if (!parent.balanciert()){
-			Node temp;
-			temp = parent;
-			while (temp.parent != temp) {
-				temp = temp.parent;
-				temp.height = height();
-			}
-		}
-	}
+	
 	public Node rotateLeft(Node n) {
 		Node temp = n.rechts;
 		n.rechts=temp.links;
@@ -356,6 +347,65 @@ public class Node {
 		n.rechts=rotateRight(n.rechts);
 		return rotateLeft(n);
 	}
-	
+	 protected AvlNode<T> rotateWithLeftChild (AvlNode<T> k2){
+		 -    AvlNode<T> k1 = k2.left;
+		 -    
+		 -    k2.left = k1.right;
+		 -    k1.right = k2;
+		 -    
+		 -    k2.height = max (height (k2.left), height (k2.right)) + 1;
+		 -    k1.height = max (height (k1.left), k2.height) + 1;
+		 -    
+		 -    return (k1);
+		 -  }
+		 -  
+		 -  /**
+		 -   * Double rotate binary tree node: first left child
+		 -   * with its right child; then node k3 with new left child.
+		 -   * For AVL trees, this is a double rotation for case 2.
+		 -   * Update heights, then return new root.
+		 -   * 
+		 -   * @param k3 Root of tree we are rotating
+		 -   * @return New root
+		 -   */
+		 -  protected AvlNode<T> doubleWithLeftChild (AvlNode<T> k3){
+		 -    k3.left = rotateWithRightChild (k3.left);
+		 -    return rotateWithLeftChild (k3);
+		 -  }
+		 -  
+		 -  /**
+		 -   * Rotate binary tree node with right child.
+		 -   * For AVL trees, this is a single rotation for case 4.
+		 -   * Update heights, then return new root.
+		 -   * 
+		 -   * @param k1 Root of tree we are rotating.
+		 -   * @return New root
+		 -   */
+		 -  protected AvlNode<T> rotateWithRightChild (AvlNode<T> k1){
+		 -    AvlNode<T> k2 = k1.right;
+		 -    
+		 -    k1.right = k2.left;
+		 -    k2.left = k1;
+		 -    
+		 -    k1.height = max (height (k1.left), height (k1.right)) + 1;
+		 -    k2.height = max (height (k2.right), k1.height) + 1;
+		 -    
+		 -    return (k2);
+		 -  }
+		 -
+		 -  /**
+		 -   * Double rotate binary tree node: first right child
+		 -   * with its left child; then node k1 with new right child.
+		 -   * For AVL trees, this is a double rotation for case 3.
+		 -   * Update heights, then return new root.
+		 -   * 
+		 -   * @param k1 Root of tree we are rotating
+		 -   * @return New root
+		 -   */
+		 -  protected AvlNode<T> doubleWithRightChild (AvlNode<T> k1){
+		 -    k1.right = rotateWithLeftChild (k1.right);
+		 -    return rotateWithRightChild (k1);
+		 -  }
+		 -
 	
 }
