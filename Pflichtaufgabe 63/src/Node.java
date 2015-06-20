@@ -29,6 +29,9 @@ public class Node {
 			if (!hatlinkesKind()) {
 				links = new Node();
 				if (!parent.balanciert()){
+					//Laura gibt auf -.-
+						
+					}
 					//baum rotieren
 				}
 				links.depth = depth;
@@ -41,6 +44,8 @@ public class Node {
 			if (!hatrechtesKind()) {
 				rechts = new Node();
 				if (!parent.balanciert()){
+					if(!rechts.hatlinkesKind()) {
+						rotateLeft(rechts);
 					//baum rotieren
 				}
 				rechts.depth = depth;
@@ -315,5 +320,42 @@ public class Node {
 			}
 		}
 	}
+	public Node rotateLeft(Node n) {
+		Node temp = n.rechts;
+		n.rechts=temp.links;
+		if(temp.links!=null)
+			temp.links.parent=n;
+		temp.links=n;
+		temp.parent=n.parent;
+		n.parent=temp;
+		//n.balanciert() = n.rechts.height() - n.links.height();
+		//temp.balanciert() = temp.rechts.height() - temp.links.height();
+		return temp;
+	}
 
+	public Node rotateRight(Node n) {
+		Node temp = n.links;
+		n.links = temp.rechts;
+		if(temp.rechts!=null)
+			temp.rechts.parent=n;
+		temp.rechts=n;
+		temp.parent=n.parent;
+		n.parent=temp;
+		//n.balanciert() = n.rechts.height() - n.links.height();
+		//temp.balanciert() = temp.rechts.height() - temp.links.height();
+
+		return temp;
+	}
+	
+	public Node doubleRotateLeft(Node n) {
+		n.links=rotateLeft(n.links);
+		return rotateRight(n);
+	}
+	
+	public Node doubleRotateRight(Node n) {
+		n.rechts=rotateRight(n.rechts);
+		return rotateLeft(n);
+	}
+	
+	
 }
