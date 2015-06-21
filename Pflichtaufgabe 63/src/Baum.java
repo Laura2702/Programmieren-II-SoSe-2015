@@ -1,5 +1,5 @@
-public class Baum {
-	Node root;
+public class Baum extends Node<xy>  {
+	Node<xy> root;
 
 	public static void main(String[] args) {
 		Baum b = new Baum();
@@ -14,8 +14,8 @@ public class Baum {
 		b.insert(4);
 		
 		b.toString();
-		System.out.println(b.root.height());
-		System.out.println(b.root.links.height());
+		System.out.println(b.root.balanciert());
+		System.out.println(b.root.links.balanciert());
 		System.out.println(b.root.rechts.height());
 		System.out.println(b.root.rechts.links.height());
 		System.out.println(b.root.rechts.links.links.height());
@@ -24,7 +24,7 @@ public class Baum {
 	}
 	
 	public Baum() {
-		root = new Node();
+		root = new Node<xy>();
 		root.parent = root;
 		
 	}

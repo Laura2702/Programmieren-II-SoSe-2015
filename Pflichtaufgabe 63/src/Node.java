@@ -1,7 +1,7 @@
-public class Node {
-	Node links;
-	Node rechts;
-	Node parent;
+public class Node<xy> {
+	Node<xy> links;
+	Node<xy> rechts;
+	Node<xy> parent;
 	Integer inhalt;
 	int depth = 0;
 	int height = 0;
@@ -27,7 +27,7 @@ public class Node {
 		if (x < inhalt) {
 			// links
 			if (!hatlinkesKind()) {
-				links = new Node();
+				links = new Node<xy>();
 				if (!parent.balanciert()) {
 					// Laura gibt auf -.-
 
@@ -41,7 +41,7 @@ public class Node {
 		} else {
 			// Fall rechts
 			if (!hatrechtesKind()) {
-				rechts = new Node();
+				rechts = new Node<xy>();
 				if (!parent.balanciert()) {
 					if (!rechts.hatlinkesKind()) {
 						rotateLeft(rechts);
@@ -203,7 +203,7 @@ public class Node {
 						return;
 					}
 				} else {
-					Node lmc = leftMostChild(rechts);
+					Node<xy> lmc = leftMostChild(rechts);
 					if (!lmc.hatrechtesKind()) {
 						inhalt = lmc.inhalt;
 						lmc.parent.links = null;
@@ -268,16 +268,16 @@ public class Node {
 		return rechts != null;
 	}
 
-	public Node leftMostChild(Node start) {
-		Node tmp = start;
+	public Node<xy> leftMostChild(Node<xy> start) {
+		Node<xy> tmp = start;
 		while (tmp.hatlinkesKind()) {
 			tmp = tmp.links;
 		}
 		return tmp;
 	}
 
-	public void updateToRoot(Node n) {
-		Node temp = n;
+	public void updateToRoot(Node<xy> n) {
+		Node<xy> temp = n;
 		temp.height = height();
 		while (temp.parent != temp) {
 			temp = temp.parent;
@@ -313,7 +313,7 @@ public class Node {
 
 	public void rotation() {
 		if (!parent.balanciert()) {
-			Node temp;
+			Node<xy> temp;
 			temp = parent;
 			while (temp.parent != temp) {
 				temp = temp.parent;
@@ -322,8 +322,8 @@ public class Node {
 		}
 	}
 
-	public Node rotateLeft(Node n) {
-		Node temp = n.rechts;
+	public Node<xy> rotateLeft(Node<xy> n) {
+		Node<xy> temp = n.rechts;
 		n.rechts = temp.links;
 		if (temp.links != null)
 			temp.links.parent = n;
@@ -335,8 +335,8 @@ public class Node {
 		return temp;
 	}
 
-	public Node rotateRight(Node n) {
-		Node temp = n.links;
+	public Node<xy> rotateRight(Node<xy> n) {
+		Node<xy> temp = n.links;
 		n.links = temp.rechts;
 		if (temp.rechts != null)
 			temp.rechts.parent = n;
@@ -349,12 +349,12 @@ public class Node {
 		return temp;
 	}
 
-	public Node doubleRotateLeft(Node n) {
+	public Node<xy> doubleRotateLeft(Node<xy> n) {
 		n.links = rotateLeft(n.links);
 		return rotateRight(n);
 	}
 
-	public Node doubleRotateRight(Node n) {
+	public Node<xy> doubleRotateRight(Node<xy> n) {
 		n.rechts = rotateRight(n.rechts);
 		return rotateLeft(n);
 	}
