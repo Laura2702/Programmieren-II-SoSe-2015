@@ -1,5 +1,5 @@
-public class Baum extends Node<xy>  {
-	Node<xy> root;
+public class Baum<T extends Comparable<T>>implements List<T> {
+	Node<T> root;
 
 	public static void main(String[] args) {
 		Baum b = new Baum();
@@ -24,28 +24,123 @@ public class Baum extends Node<xy>  {
 	}
 	
 	public Baum() {
-		root = new Node<xy>();
+		root = new Node<T>();
 		root.parent = root;
 		
 	}
 
-	public String toString() {
+	/*public String toString() {
 		return root.toString();
-	}
+	}*/
 
-	public void insert(Integer x) {
+	public List<T> insert(T x) {
 		root.insert(x, 1);
+		return this;
 	}
 
 	public boolean isEmpty() {
 		return root.isEmpty();
 	}
 
-	public boolean contains(Integer x) {
+	public boolean contains(T x) {
 		return root.contains(x);
 	}
 
-	public void delete(Integer x) {
+	public List<T> delete(T x) {
 		root.delete(x);
+		return this;
 	}
+
+	@Override
+	public int length() {
+		// TODO Auto-generated method stub
+		return root.size();
+	}
+
+	@Override
+	public boolean isInList(T x) {
+		// TODO Auto-generated method stub
+		return contains(x);
+	}
+
+	@Override
+	public T firstItem() throws IllegalStateException {
+		// TODO Auto-generated method stub
+		if(!isEmpty()){
+			return root.leftMostChild(root).inhalt;
+		}
+		throw new  IllegalStateException();
+		
+	}
+
+	@Override
+	public T getItem(int i) throws IndexOutOfBoundsException {
+		return root.getItem(i);
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	@Override
+	public List<T> append(T x) {
+		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public List<T> delete() {
+		if(!isEmpty()){
+			delete(firstItem());
+		}
+		// TODO Auto-generated method stub
+		return this;
+	}
+	 /**
+     * To string.
+     *
+     * @return the string
+     */
+    public String toString() {
+        int length = length();
+        StringBuilder string = new StringBuilder();
+        if (this.isEmpty()) {
+            string.append("Inventar ist leer.");
+            return string.toString();
+        }
+        for (int i = 0; i < length; i++) {
+        	T item = getItem(i); 
+            if (item instanceof Item) {
+                Item neuesItem = (Item) item;
+                string.append("\n");
+                string.append(i);
+                string.append(" - ");
+                string.append(((Item) getItem(i)).getName());
+                string.append(" - ");
+                string.append((int) (((Item) getItem(i)).getValue() * 1.3));
+                string.append("G - ");
+                string.append(((Item) getItem(i)).getValue());
+                string.append("G - ");
+                string.append(((Item) getItem(i)).getWeight());
+                string.append("g");
+            }
+            if (item instanceof Quest) {
+                Quest neueQuest = (Quest) item;
+                string.append("\n");
+                string.append(i);
+                string.append(" - ");
+                string.append(((Quest) getItem(i)).getName());
+                string.append(" - ");
+                string.append(((Quest) getItem(i)).getPrequest());
+                string.append(" - ");
+                string.append(((Quest) getItem(i)).getItem());
+                string.append(" - ");
+                string.append(((Quest) getItem(i)).getQuantity());
+            }
+        }
+        return string.toString();
+    }
 }

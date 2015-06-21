@@ -18,9 +18,9 @@ import java.util.Scanner;
  */
 public class Crawler {
     /** itempool: alle Items */
-    public static Inventar<Item> itempool = new Inventar<Item>();
+    public static List<Item> itempool = new Baum<Item>();
     /** questpool: alle Quests */
-    public static Inventar<Quest> questpool = new Inventar<Quest>();
+    public static List<Quest> questpool = new Baum<Quest>();
     private static String SAVE_GAME ="save.ser";
     /** player */
     private static Player player = new Player();
@@ -55,7 +55,7 @@ public class Crawler {
                 double value = Double.parseDouble(splits[1].trim());
                 double weight = Double.parseDouble(splits[2].trim());
                 Item temp = new Item(name, value, weight);
-                itempool.append(temp);
+                itempool.insert(temp);
             }
             br = Files.newBufferedReader(Paths.get("quest.csv"));
             String line2 = null;
@@ -69,7 +69,7 @@ public class Crawler {
                 item.trim();
                 int quantity = Integer.parseInt(splits[3].trim());
                 Quest temp = new Quest(name, pre, item, quantity);
-                questpool.append(temp);
+                questpool.insert(temp);
             }
 
         } catch (IOException e) {

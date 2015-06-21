@@ -1,8 +1,8 @@
-public class Node<xy> {
+public class Node<xy extends Comparable<xy>> {
 	Node<xy> links;
 	Node<xy> rechts;
 	Node<xy> parent;
-	Integer inhalt;
+	xy inhalt;
 	int depth = 0;
 	int height = 0;
 
@@ -19,20 +19,58 @@ public class Node<xy> {
 
 	}
 
-	public void insert(Integer x, int depth) {
+	/**
+	 * Gibt die Anzahl der Items im Baum zurueck
+	 * 
+	 * @return die Anzahl
+	 */
+	public int size() {
+		if (links == null && rechts == null) {
+			return 1;
+		}
+		if (links == null) {
+			return 1 + rechts.size();
+		}
+		if (rechts == null) {
+			return 1 + links.size();
+		}
+		return 1 + links.size() + rechts.size();
+	}
+
+	/**
+	 * Gibt das Item an Position i zurueck
+	 * 
+	 * @param i
+	 *            die Position
+	 * @return das Item
+	 */
+	public xy getItem(int i) {
+		int sizeLeft = 0;
+		if (links != null) {
+			sizeLeft = links.size();
+		}
+
+		if (i == sizeLeft || rechts == null) {
+			return inhalt;
+		}
+
+		if (i < sizeLeft) {
+			return links.getItem(i);
+		} else {
+			return rechts.getItem(i - sizeLeft - 1);
+		}
+	}
+
+	public void insert(xy x, int depth) {
 		if (isEmpty()) {
 			inhalt = x;
 			return;
 		}
-		if (x < inhalt) {
+		if (x.compareTo(inhalt) < 0) {
 			// links
 			if (!hatlinkesKind()) {
 				links = new Node<xy>();
-				if (!parent.balanciert()) {
-					// Laura gibt auf -.-
 
-					// baum rotieren
-				}
 				links.depth = depth;
 			}
 			links.parent = this;
@@ -42,12 +80,7 @@ public class Node<xy> {
 			// Fall rechts
 			if (!hatrechtesKind()) {
 				rechts = new Node<xy>();
-				if (!parent.balanciert()) {
-					if (!rechts.hatlinkesKind()) {
-						rotateLeft(rechts);
-						// baum rotieren
-					}
-				}
+
 				rechts.depth = depth;
 			}
 			rechts.parent = this;
@@ -56,27 +89,28 @@ public class Node<xy> {
 
 		}
 		this.height = height();
+		rebalancieren();
 	}
 
 	public boolean isEmpty() {
 		return inhalt == null;
 	}
 
-	public boolean contains(Integer x) {
+	public boolean contains(xy x) {
 		boolean drin = false;
 		if (isEmpty()) {
 			drin = false;
 		} else {
 			if (x == inhalt) {
 				drin = true;
-			} else if (x < inhalt) {
-				if (x < inhalt && !hatlinkesKind()) {
+			} else if (x.compareTo(inhalt) < 0) {
+				if (x.compareTo(inhalt) < 0 && !hatlinkesKind()) {
 					drin = false;
 				} else {
 					links.contains(x);
 				}
-			} else if (x > inhalt) {
-				if (x > inhalt && !hatrechtesKind()) {
+			} else if (x.compareTo(inhalt) > 0) {
+				if (x.compareTo(inhalt) > 0 && !hatrechtesKind()) {
 					drin = false;
 				} else {
 					rechts.contains(x);
@@ -86,7 +120,7 @@ public class Node<xy> {
 		return drin;
 	}
 
-	public void delete(Integer x) {
+	public void delete(xy x) {
 		if (isEmpty()) {
 			return;
 		}
@@ -128,6 +162,7 @@ public class Node<xy> {
 					links = links.links;
 					this.height = height();
 					links.height = links.height();
+					rebalancieren();
 					return;
 				}
 				if (parent.hatlinkesKind()) { // ich bin das linke kind.
@@ -137,6 +172,7 @@ public class Node<xy> {
 						links.depth--;
 						// updateToRoot(parent);
 						parent.height = parent.height();
+						rebalancieren();
 						return;
 					}
 				} else if (parent.hatrechtesKind()) {
@@ -146,6 +182,7 @@ public class Node<xy> {
 						links.depth--;
 						// updateToRoot(parent);
 						parent.height = parent.height();
+						rebalancieren();
 						return;
 					}
 				}
@@ -165,6 +202,7 @@ public class Node<xy> {
 					rechts.depth--;
 					this.height = height();
 					rechts.height = rechts.height();
+					rebalancieren();
 					return;
 				}
 				if (parent.hatlinkesKind()) {
@@ -174,6 +212,7 @@ public class Node<xy> {
 						rechts.depth--;
 						// updateToRoot(parent);
 						parent.height = parent.height();
+						rebalancieren();
 						return;
 					}
 				} else if (parent.hatrechtesKind()) {
@@ -183,6 +222,7 @@ public class Node<xy> {
 						rechts.depth--;
 						// updateToRoot(parent);
 						parent.height = parent.height();
+						rebalancieren();
 						return;
 					}
 				}
@@ -193,6 +233,7 @@ public class Node<xy> {
 					if (!rechts.hatrechtesKind()) {
 						inhalt = rechts.inhalt;
 						rechts = null;
+						rebalancieren();
 						return;
 					} else {
 						inhalt = rechts.inhalt;
@@ -200,6 +241,7 @@ public class Node<xy> {
 						rechts = rechts.rechts;
 						parent.height = height();
 						rechts.height = rechts.height();
+						rebalancieren();
 						return;
 					}
 				} else {
@@ -209,6 +251,7 @@ public class Node<xy> {
 						lmc.parent.links = null;
 						// updateToRoot(lmc.parent);
 						lmc.parent.height = lmc.parent.height();
+						rebalancieren();
 						return;
 					} else {
 						inhalt = lmc.inhalt;
@@ -216,19 +259,22 @@ public class Node<xy> {
 						lmc.parent.links = lmc.rechts;
 						// updateToRoot(lmc.parent);
 						lmc.parent.height = lmc.parent.height();
+						rebalancieren();
 						return;
 					}
 				}
 			}
-		} else if (x < inhalt) {
-			if (x < inhalt && !hatlinkesKind()) {
+		} else if (x.compareTo(inhalt) < 0) {
+			if (x.compareTo(inhalt) < 0 && !hatlinkesKind()) {
+				rebalancieren();
 				return;
 			} else {
 				links.delete(x);
 				height = height();
 			}
-		} else if (x > inhalt) {
-			if (x > inhalt && !hatrechtesKind()) {
+		} else if (x.compareTo(inhalt) > 0) {
+			if (x.compareTo(inhalt) > 0 && !hatrechtesKind()) {
+				rebalancieren();
 				return;
 			} else {
 				rechts.delete(x);
@@ -285,78 +331,90 @@ public class Node<xy> {
 		}
 	}
 
-	public boolean balanciert() {
+	public int balanciert() {
 		if (links == null && rechts == null) {// keine kinder
-			return true;
+			return 0;
 		}
 		if (links != null && rechts == null) {// linkes kind
-			if (links.height() > 1) {
-				return false;
-			} else {
-				return true;
-			}
+
+			return links.height();
 		}
+
 		if (links == null && rechts != null) {// rechtes kind
-			if (rechts.height() > 1) {
-				return false;
+
+			return 0 - rechts.height();
+		}
+
+		// beide kinder
+
+		return links.height() - rechts.height();
+	}
+
+	public void rebalancieren() {
+		if (balanciert() == 2) {
+			if (links.balanciert() == 1) {
+				rotateRight();
 			} else {
-				return true;
+				doubleRotateRight();
 			}
 		}
-		if (Math.abs(links.height() - rechts.height()) > 1) {// beide kinder
-			return false;
-		} else {
-			return true;
-		}
-
-	}
-
-	public void rotation() {
-		if (!parent.balanciert()) {
-			Node<xy> temp;
-			temp = parent;
-			while (temp.parent != temp) {
-				temp = temp.parent;
-				temp.height = height();
+		if (balanciert() == -2) {
+			if (rechts.balanciert() == -1) {
+				rotateLeft();
+			} else {
+				doubleRotateLeft();
 			}
 		}
 	}
 
-	public Node<xy> rotateLeft(Node<xy> n) {
-		Node<xy> temp = n.rechts;
-		n.rechts = temp.links;
-		if (temp.links != null)
-			temp.links.parent = n;
-		temp.links = n;
-		temp.parent = n.parent;
-		n.parent = temp;
-		// n.balanciert() = n.rechts.height() - n.links.height();
-		// temp.balanciert() = temp.rechts.height() - temp.links.height();
-		return temp;
+	public void rotateLeft() {
+		Node<xy> newLeft = new Node<xy>();
+		newLeft.inhalt = inhalt;
+		if (links != null) {
+			newLeft.links = links;
+			links.parent = newLeft;
+		}
+		if (rechts.links != null) {
+			newLeft.rechts = rechts.links;
+			rechts.links.parent = newLeft;
+		}
+		inhalt = rechts.inhalt;
+		links = newLeft;
+		links.parent = this;
+		rechts = rechts.rechts;
+		if (rechts != null) {
+			rechts.parent = this;
+		}
 	}
 
-	public Node<xy> rotateRight(Node<xy> n) {
-		Node<xy> temp = n.links;
-		n.links = temp.rechts;
-		if (temp.rechts != null)
-			temp.rechts.parent = n;
-		temp.rechts = n;
-		temp.parent = n.parent;
-		n.parent = temp;
-		// n.balanciert() = n.rechts.height() - n.links.height();
-		// temp.balanciert() = temp.rechts.height() - temp.links.height();
-
-		return temp;
+	public void rotateRight() {
+		Node<xy> newRight = new Node<xy>();
+		newRight.inhalt = inhalt;
+		if (rechts != null) {
+			newRight.rechts = rechts;
+			rechts.parent = newRight;
+		}
+		if (links.rechts != null) {
+			newRight.links = links.rechts;
+			links.rechts.parent = newRight;
+		}
+		inhalt = links.inhalt;
+		rechts = newRight;
+		rechts.parent = this;
+		links = links.links;
+		if (links != null) {
+			links.parent = this;
+		}
 	}
 
-	public Node<xy> doubleRotateLeft(Node<xy> n) {
-		n.links = rotateLeft(n.links);
-		return rotateRight(n);
+	public void doubleRotateRight() {
+		links.rotateLeft();
+		rotateRight();
 	}
 
-	public Node<xy> doubleRotateRight(Node<xy> n) {
-		n.rechts = rotateRight(n.rechts);
-		return rotateLeft(n);
+	public void doubleRotateLeft() {
+		rechts.rotateRight();
+		rotateLeft();
 	}
 
 }
