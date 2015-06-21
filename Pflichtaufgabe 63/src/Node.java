@@ -57,7 +57,7 @@ public class Node<xy extends Comparable<xy>> {
 		if (i < sizeLeft) {
 			return links.getItem(i);
 		} else {
-			return rechts.getItem(i - sizeLeft - 1);
+			return rechts.getItem(i - sizeLeft - 1);//umkehrung von size
 		}
 	}
 
