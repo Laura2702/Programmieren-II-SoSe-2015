@@ -155,7 +155,7 @@ public class Crawler {
                     break;
                 case 'B':
                 	Battle battle = new Battle(monster,player);
-                   // kampf(player);
+                	Sync.waitForBattleEnd();
                     System.out.println("\n" + m.toString());
                     break;
                 case '$':

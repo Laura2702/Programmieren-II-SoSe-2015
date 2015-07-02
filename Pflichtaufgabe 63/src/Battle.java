@@ -99,6 +99,7 @@ public class Battle implements ActionListener {
 		jfr.pack();
 		jfr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jfr.setVisible(true);
+		Sync.waitForBattleEnd();
 	}
 
 	@Override
