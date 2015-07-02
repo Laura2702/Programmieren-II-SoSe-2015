@@ -26,6 +26,7 @@ public class Crawler {
     private static Player player = new Player();
     /** shop (Haendler) */
     private static Shop shop = new Shop();
+    private static Monster monster;
     
     /** itempool: alle Items */
 
@@ -42,6 +43,7 @@ public class Crawler {
         int x = 1;
         int y = 1;
         BufferedReader br;
+        
         /**
          * liest .csv Dateien ein
          */
@@ -77,6 +79,28 @@ public class Crawler {
             e.printStackTrace();
         }
         shop.init();
+        monster=new Monster();
+        Monster monster1 = new Monster();
+        Pikagirl pikagirl = new Pikagirl();
+        SCP049 scp049 = new SCP049();
+        Monster monster;
+        int r;
+        switch ((int) (Math.ceil(Math.random() * 3))) {
+            case 2:
+                monster = pikagirl;
+                monster.typ="pikagirl";
+                r = 0;
+                break;
+            case 3:
+                monster = monster1;
+                r = 2;
+                break;
+            default:
+                monster = scp049;
+                monster.typ="scp049";
+                r = 1;
+                break;
+        }
 
         System.out.println("\nBitte waehle die Groesse deines Spielfeldes."
                 + "\nDas Feld muss mind. 5x5 Felder gross sein.");
@@ -130,7 +154,8 @@ public class Crawler {
                     System.out.println("Die Schmiede ist weitergezogen.\n");
                     break;
                 case 'B':
-                    kampf(player);
+                	Battle battle = new Battle(monster,player);
+                   // kampf(player);
                     System.out.println("\n" + m.toString());
                     break;
                 case '$':
@@ -335,10 +360,10 @@ public class Crawler {
      * @param player
      *            Player
      **/
-    public static void kampf(Player player) {
+    /*public static void kampf(Player player) {
         int r;
         int clock = 0;
-        Scanner s = new Scanner(System.in);
+        /*Scanner s = new Scanner(System.in);
         Monster monster1 = new Monster();
         Pikagirl pikagirl = new Pikagirl();
         SCP049 scp049 = new SCP049();
@@ -464,5 +489,5 @@ public class Crawler {
         if (player.isDefeated()) {
             System.out.println("\nDu hast den Kampf verloren.\n");
         }
-    }
+    }*/
 }
