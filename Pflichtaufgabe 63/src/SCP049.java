@@ -11,7 +11,7 @@ public class SCP049 extends Monster {
     public SCP049() {
         this.hp = hp + 40;
         this.maxHP = maxHP + 40;
-        this.atk = atk - 20;
+        this.atk = atk -10;
         this.hitChance = hitChance + 0.1;
      
     }

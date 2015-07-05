@@ -9,7 +9,7 @@ public class Pikagirl extends Monster {
      *  Aendert Statuswerte von Pikagirl
      **/
     public Pikagirl() {
-        this.hp = hp - 60;
+        this.hp = hp - 10;
         this.maxHP = maxHP - 10;
         this.hitChance = hitChance + 0.1;
     

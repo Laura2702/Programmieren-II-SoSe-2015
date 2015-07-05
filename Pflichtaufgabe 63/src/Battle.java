@@ -189,6 +189,7 @@ public class Battle implements ActionListener {
 			history.setText("Das Monster greift an");
 			if (monster.attack(player) > -1) {
 				history.setText("Der Angriff des Monsters war erfolgreich");
+				pHp.setText("Hp: " + player.hp);
 				if (clock == 0) {
 					clock = 1;
 				}

@@ -15,7 +15,7 @@ public class Monster extends Character {
 	 * Constructor setzt Werte fuer maxHP, hp, atk und hitChance
 	 **/
 	public Monster() {
-		super(70, 70, 2, 0.6, new Inventar<Item>());
+		super(70, 70, 20, 0.6, new Inventar<Item>());
 		inventar.insert(new Item());
 		inventar.insert(new Item());
 		inventar.insert(new Item());

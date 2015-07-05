@@ -78,8 +78,6 @@ public class Crawler {
 			e.printStackTrace();
 		}
 		shop.init();
-		monster = new Monster();
-		monster = monster.monsterGenerate(monster);
 
 		System.out.println(
 				"\nBitte waehle die Groesse deines Spielfeldes." + "\nDas Feld muss mind. 5x5 Felder gross sein.");
@@ -128,6 +126,8 @@ public class Crawler {
 				System.out.println("Die Schmiede ist weitergezogen.\n");
 				break;
 			case 'B':
+				monster = new Monster();
+				monster = monster.monsterGenerate(monster);
 				new Battle(monster, player);
 				Sync.waitForBattleEnd();
 				break;
