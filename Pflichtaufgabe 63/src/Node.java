@@ -16,7 +16,6 @@ public class Node<xy extends Comparable<xy>> {
             z = rechts.height();
         }
         return z + 1;
-
     }
 
     /**

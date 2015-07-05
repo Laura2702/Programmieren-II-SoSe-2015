@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Sophie Unverzagt 4568856 Gruppe 3b
  * @param <T>
  */
-public class Inventar<T extends Comparable<T>> implements List<T>,Serializable {
+public class Inventar<T extends Comparable<T>> implements List<T>, Serializable {
 
     /**
      * The Item.
@@ -57,8 +57,7 @@ public class Inventar<T extends Comparable<T>> implements List<T>,Serializable {
      */
     public T getItem(int i) {
         if (i <= 0 || i > length()) {
-            throw new IndexOutOfBoundsException(String.format("%d / %d", i,
-                    length()));
+            throw new IndexOutOfBoundsException(String.format("%d / %d", i, length()));
         }
         if (i == 1) {
             return firstItem();

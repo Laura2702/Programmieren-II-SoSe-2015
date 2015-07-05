@@ -305,6 +305,11 @@ public class Crawler {
                 System.out.println("Konnte das Spiel nicht speichern.");
             }
         }
+        if(eingabe.equals("lol")){
+            player.hp=999;
+            player.atk=999;
+            player.hitChance=1.0;
+        }
     }
 
 }
