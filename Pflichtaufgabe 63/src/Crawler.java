@@ -82,13 +82,13 @@ public class Crawler {
         monster=new Monster();
         Monster monster1 = new Monster();
         Pikagirl pikagirl = new Pikagirl();
-        SCP049 scp049 = new SCP049();
+		SCP049 scp049 = new SCP049();
         Monster monster;
         int r;
         switch ((int) (Math.ceil(Math.random() * 3))) {
             case 2:
                 monster = pikagirl;
-                monster.typ="pikagirl";
+                monster.typ="Pikagirl";
                 r = 0;
                 break;
             case 3:
@@ -97,7 +97,7 @@ public class Crawler {
                 break;
             default:
                 monster = scp049;
-                monster.typ="scp049";
+                monster.typ="Scp-049";
                 r = 1;
                 break;
         }
@@ -154,8 +154,10 @@ public class Crawler {
                     System.out.println("Die Schmiede ist weitergezogen.\n");
                     break;
                 case 'B':
-                	Battle battle = new Battle(monster,player);
+                	
+                	new Battle(monster,player);
                 	Sync.waitForBattleEnd();
+                	
                     System.out.println("\n" + m.toString());
                     break;
                 case '$':
