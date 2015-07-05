@@ -1,10 +1,11 @@
 import java.io.Serializable;
 
-/** 
- *  Character ist eine Klasse.
- *  @author Laura Pichlmeier 4573524 Gruppe 3b
- *  @author Sophie Duehn 4577449 Gruppe 3b
- *  @author Sophie Unverzagt 4568856 Gruppe 3b
+/**
+ * Character ist eine Klasse.
+ * 
+ * @author Laura Pichlmeier 4573524 Gruppe 3b
+ * @author Sophie Duehn 4577449 Gruppe 3b
+ * @author Sophie Unverzagt 4568856 Gruppe 3b
  **/
 public class Character implements Serializable {
     /** maxHP */
@@ -15,18 +16,24 @@ public class Character implements Serializable {
     protected int atk;
     /** hitChance */
     protected double hitChance;
-    /** gold*/
+    /** gold */
     protected int gold;
-    /** inventar*/
+    /** inventar */
     protected Inventar<Item> inventar;
-    
+
     /**
-     *  Character-Constructor:
-     *  @param maxHP maxHP
-     *  @param hp hp
-     *  @param atk atk
-     *  @param hitChance hitChance
-     *  @param inventar inventar
+     * Character-Constructor:
+     * 
+     * @param maxHP
+     *            maxHP
+     * @param hp
+     *            hp
+     * @param atk
+     *            atk
+     * @param hitChance
+     *            hitChance
+     * @param inventar
+     *            inventar
      **/
     public Character(int maxHP, int hp, int atk, double hitChance, Inventar<Item> inventar) {
         this.maxHP = maxHP;
@@ -35,37 +42,37 @@ public class Character implements Serializable {
         this.hitChance = hitChance;
         this.inventar = inventar;
     }
-    
+
     /**
-     *  @return maxHP
+     * @return maxHP
      **/
     public int getMaxHP() {
         return this.maxHP;
     }
-    
+
     /**
-     *  @return hp
+     * @return hp
      **/
     public int getHp() {
         return this.hp;
     }
-    
+
     /**
-     *  @return atk
+     * @return atk
      **/
     public int getAtk() {
         return this.atk;
     }
-    
+
     /**
-     *  @return hitChance
+     * @return hitChance
      **/
     public double getHitChance() {
         return this.hitChance;
     }
-    
+
     /**
-     *  @return true, wenn player besiegt ist
+     * @return true, wenn player besiegt ist
      **/
     public boolean isDefeated() {
         if (this.hp == 0) {
@@ -74,10 +81,11 @@ public class Character implements Serializable {
             return false;
         }
     }
-    
+
     /**
-     *  @param damage Schaden, der erlitten wird
-     *  @return damage, der erlitten wird
+     * @param damage
+     *            Schaden, der erlitten wird
+     * @return damage, der erlitten wird
      **/
     public int takeDamage(int damage) {
         if (this.hp - damage < 0) {
@@ -87,12 +95,14 @@ public class Character implements Serializable {
         }
         return damage;
     }
-    
+
     /**
-     *  Ermittelt, ob der Angriff des Characters trifft und wie viel 
-     *  Schaden dieser beim Gegner verursacht.
-     *  @param character den anzugreifenden character
-     *  @return damage Schaden am Gegner
+     * Ermittelt, ob der Angriff des Characters trifft und wie viel Schaden
+     * dieser beim Gegner verursacht.
+     * 
+     * @param character
+     *            den anzugreifenden character
+     * @return damage Schaden am Gegner
      */
     public int attack(Character character) {
         if (this.hitChance > Math.random()) {
@@ -106,17 +116,19 @@ public class Character implements Serializable {
             return -1;
         }
     }
-    
+
     /**
-     *  atk wird um bestimmten wert erhoeht
-     *  @param wert , um den die atk erhoeht werden
+     * atk wird um bestimmten wert erhoeht
+     * 
+     * @param wert
+     *            , um den die atk erhoeht werden
      **/
     public void atkerhoehen(int wert) {
         this.atk += wert;
     }
-    
+
     /**
-     *  hp werden vollgeheilt
+     * hp werden vollgeheilt
      **/
     public void hperhoehen() {
         this.hp = maxHP;
