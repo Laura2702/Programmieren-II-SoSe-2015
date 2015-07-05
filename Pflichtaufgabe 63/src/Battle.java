@@ -103,10 +103,8 @@ public class Battle implements ActionListener {
 		item.addActionListener(this);
 
 		jfr.pack();
-		jfr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Sync.battleFinished();
+		jfr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jfr.setVisible(true);
-		Sync.waitForBattleEnd();
 	}
 
 	/**
@@ -173,11 +171,11 @@ public class Battle implements ActionListener {
 			}
 
 		} else {
-			history.setText("\nUngueltige Aktion!");
+			history.setText("Ungueltige Aktion!");
 		}
 		if (monster.isDefeated()) {
 
-			history.setText("\nDu hast den Kampf gewonnen!");
+			history.setText("Du hast den Kampf gewonnen! Schlieﬂe das Fenster um weiter zu spielen.");
 			if (!monster.inventar.isEmpty()) {
 				int length = monster.inventar.length();
 				for (int i = 1; i <= length; i++) {
@@ -186,10 +184,9 @@ public class Battle implements ActionListener {
 				monster.inventar.delete();
 			}
 			Sync.battleFinished();
-			jfr.dispose();
 
 		} else {
-			history.setText("Das Monster greift an\n");
+			history.setText("Das Monster greift an");
 			if (monster.attack(player) > -1) {
 				history.setText("Der Angriff des Monsters war erfolgreich");
 				if (clock == 0) {
@@ -211,8 +208,7 @@ public class Battle implements ActionListener {
 		// history.setText(player.regenerateAp() + "AP wurden regeneriert.");
 
 		if (player.isDefeated()) {
-			history.setText("\nDu hast den Kampf verloren.\n");
-			jfr.dispose();
+			history.setText("Du hast den Kampf verloren.");
 			System.exit(0);
 		}
 	}
