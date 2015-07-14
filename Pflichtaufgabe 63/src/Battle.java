@@ -250,30 +250,38 @@ public class Battle implements ActionListener {
             Thread thread2 = new Thread() {
                 public void run() {
                     
+                    while (kampf&&!player.isDefeated()) {
                         try {
-                            this.sleep(2000);
+                            this.sleep(1000);
                         } catch (InterruptedException e) {
                         }
-                        player.regenerateAp();
+                        history.setText("Das Monster greift an");
+                        if (monster.attack(player) > -1) {
+                            history.setText("Der Angriff des Monsters war erfolgreich");
+                            pHp.setText("Hp: " + player.hp);
+                            if (clock == 0) {
+                                clock = 1;
+                            }
+                        } else {
+                            history.setText("Du bist ausgewichen");
+                        }
+                        if (r == 1 && clock != 0 && monster.typ.equals("Scp-049")) {
+                            history.setText("Deathclock is ticking");
+                        }
+                        if (clock == 4 && monster.typ.equals("Scp-049")) {
+                            monster.deathclock(player);
+                        } else {
+                            clock++;
+
+                        }
+
+                        r++;
+
                     }
-                
+                }
+
             };
             thread2.start();
-            /*
-             * history.setText("Das Monster greift an"); if
-             * (monster.attack(player) > -1) {
-             * history.setText("Der Angriff des Monsters war erfolgreich");
-             * pHp.setText("Hp: " + player.hp); if (clock == 0) { clock = 1; } }
-             * else { history.setText("Du bist ausgewichen"); } if (r == 1 &&
-             * clock != 0 && monster.typ.equals("Scp-049")) {
-             * history.setText("Deathclock is ticking"); } if (clock == 4 &&
-             * monster.typ.equals("Scp-049")) { monster.deathclock(player); }
-             * else { clock++;
-             * 
-             * } }
-             */
-
-            r++;
             if (player.isDefeated()) {
                 System.out.println("Du hast den Kampf verloren.\n Game Over.");
                 kampf = false;
