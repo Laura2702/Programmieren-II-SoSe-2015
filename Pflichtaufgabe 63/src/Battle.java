@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 /**
  * Dies ist Pflichtaufgabe 70.
  * 
@@ -35,10 +36,20 @@ public class Battle implements ActionListener {
     private JLabel mAtk;
     /** Das Fenster */
     private JFrame jfr;
+    private JButton angriff;
+    private JButton feuerball;
+    private JButton item;
+
+    private JButton wasserkanone;
+    private JButton stampfer;
     /** Deathclock(SCP-049) */
     private int clock = 0;
     /** Rundenzähler(für Deathclock) */
     private int r = 1;
+    /** Button-Cooldown **/
+    boolean cooldown = false;
+    /** Kampf-Test **/
+    boolean kampf = true;
 
     /**
      * Battle-Constructor: Erstellt ein Kampffenster.
@@ -86,7 +97,7 @@ public class Battle implements ActionListener {
         q.add(history, c);
         c.gridwidth = 1;
         grid.add(q);
-        JButton angriff = new JButton("Angriff");
+        angriff = new JButton("Angriff");
         JButton feuerball = new JButton("Feuerball");
         JButton wasserkanone = new JButton("Wasserkanone");
         JButton stampfer = new JButton("Stampfer");
@@ -124,6 +135,18 @@ public class Battle implements ActionListener {
         jfr.pack();
         jfr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jfr.setVisible(true);
+        Thread thread = new Thread() {
+            public void run() {
+                while (kampf) {
+                    try {
+                        this.sleep(5000);
+                    } catch (InterruptedException e) {
+                    }
+                    player.regenerateAp();
+                }
+            }
+        };
+        thread.start();
     }
 
     /**
@@ -136,61 +159,79 @@ public class Battle implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (cooldown == false) {
+            if (e.getActionCommand().equals("a")) {
 
-        if (e.getActionCommand().equals("a")) {
-            switch (player.attack(monster)) {
-            case -1:
-                history.setText("Das Monster ist ausgewichen");
-                break;
-            case -2:
-                history.setText("Der Angriff scheint erfolgreich, jedoch ist Pikagirl im letzten Moment ausgewichen.");
-                break;
-            default:
-                history.setText("Der Angriff war erfolgreich");
-                mHp.setText("Hp: " + monster.hp);
-                break;
-            }
-        } else if (e.getActionCommand().equals("i")) {
-            if (player.heal()) {
-                history.setText("Heilung war erfolgreich");
-                pHp.setText("Hp: " + player.hp);
-            } else {
-                if (player.getRemainingItemUses() == 0) {
-                    history.setText("Du hast keine Heiltraenke mehr uebrig");
-                } else {
-                    history.setText("Du hast bereits volles Leben!");
+                switch (player.attack(monster)) {
+                case -1:
+                    history.setText("Das Monster ist ausgewichen");
+                    break;
+                case -2:
+                    history.setText("Der Angriff scheint erfolgreich, jedoch ist Pikagirl im letzten Moment ausgewichen.");
+                    break;
+                default:
+                    history.setText("Der Angriff war erfolgreich");
+                    mHp.setText("Hp: " + monster.hp);
+                    break;
                 }
-            }
+            } else if (e.getActionCommand().equals("i")) {
 
-        } else if (e.getActionCommand().equals("0")) {
-            if (player.getSkill(0).useSkill(player, monster)) {
-                history.setText("Feuerball wurde erfolgreich eingesetzt");
-                mHp.setText("Hp: " + monster.hp);
-                pAp.setText("Ap: " + player.getAp());
+                if (player.heal()) {
+                    history.setText("Heilung war erfolgreich");
+                    pHp.setText("Hp: " + player.hp);
+                } else {
+                    if (player.getRemainingItemUses() == 0) {
+                        history.setText("Du hast keine Heiltraenke mehr uebrig");
+                    } else {
+                        history.setText("Du hast bereits volles Leben!");
+                    }
+                }
+                // synchronized?
+            } else if (e.getActionCommand().equals("0")) {
+                if (player.getSkill(0).useSkill(player, monster)) {
+                    history.setText("Feuerball wurde erfolgreich eingesetzt");
+                    mHp.setText("Hp: " + monster.hp);
+                    pAp.setText("Ap: " + player.getAp());
+                } else {
+                    history.setText("Feuerball wurde NICHT erfolgreich eingesetzt");
+                }
+
+            } else if (e.getActionCommand().equals("1")) {
+                if (player.getSkill(1).useSkill(player, monster)) {
+                    history.setText("Wasserkanone wurde erfolgreich eingesetzt");
+                    mHp.setText("Hp: " + monster.hp);
+                    pAp.setText("Ap: " + player.getAp());
+                } else {
+                    history.setText("Wasserkanone wurde NICHT erfolgreich eingesetzt");
+                }
+
+            } else if (e.getActionCommand().equals("2")) {
+                if (player.getSkill(2).useSkill(player, monster)) {
+                    history.setText("Stampfer wurde erfolgreich eingesetzt");
+                    pAp.setText("Ap: " + player.getAp());
+                    mHp.setText("Hp: " + monster.hp);
+                } else {
+                    history.setText("Stampfer wurde NICHT erfolgreich eingesetzt");
+                }
+
             } else {
-                history.setText("Feuerball wurde NICHT erfolgreich eingesetzt");
+                history.setText("Ungueltige Aktion!");
             }
-
-        } else if (e.getActionCommand().equals("1")) {
-            if (player.getSkill(1).useSkill(player, monster)) {
-                history.setText("Wasserkanone wurde erfolgreich eingesetzt");
-                mHp.setText("Hp: " + monster.hp);
-                pAp.setText("Ap: " + player.getAp());
-            } else {
-                history.setText("Wasserkanone wurde NICHT erfolgreich eingesetzt");
-            }
-
-        } else if (e.getActionCommand().equals("2")) {
-            if (player.getSkill(2).useSkill(player, monster)) {
-                history.setText("Stampfer wurde erfolgreich eingesetzt");
-                pAp.setText("Ap: " + player.getAp());
-                mHp.setText("Hp: " + monster.hp);
-            } else {
-                history.setText("Stampfer wurde NICHT erfolgreich eingesetzt");
-            }
-
-        } else {
-            history.setText("Ungueltige Aktion!");
+            Thread thread1 = new Thread() {
+                public void run() {
+                    cooldown = true;
+                    angriff.setEnabled(false);
+                    if (cooldown) {
+                        try {
+                            this.sleep(2000);
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                    cooldown = false;
+                    angriff.setEnabled(true);
+                }
+            };
+            thread1.start();
         }
         if (monster.isDefeated()) {
 
@@ -202,33 +243,42 @@ public class Battle implements ActionListener {
                 }
                 monster.inventar.delete();
             }
+            kampf = false;
             Sync.battleFinished();
 
         } else {
-            history.setText("Das Monster greift an");
-            if (monster.attack(player) > -1) {
-                history.setText("Der Angriff des Monsters war erfolgreich");
-                pHp.setText("Hp: " + player.hp);
-                if (clock == 0) {
-                    clock = 1;
-                }
-            } else {
-                history.setText("Du bist ausgewichen");
-            }
-            if (r == 1 && clock != 0 && monster.typ.equals("Scp-049")) {
-                history.setText("Deathclock is ticking");
-            }
-            if (clock == 4 && monster.typ.equals("Scp-049")) {
-                monster.deathclock(player);
-            } else {
-                clock++;
+            Thread thread2 = new Thread() {
+                public void run() {
+                    
+                        try {
+                            this.sleep(2000);
+                        } catch (InterruptedException e) {
+                        }
+                        player.regenerateAp();
+                    }
+                
+            };
+            thread2.start();
+            /*
+             * history.setText("Das Monster greift an"); if
+             * (monster.attack(player) > -1) {
+             * history.setText("Der Angriff des Monsters war erfolgreich");
+             * pHp.setText("Hp: " + player.hp); if (clock == 0) { clock = 1; } }
+             * else { history.setText("Du bist ausgewichen"); } if (r == 1 &&
+             * clock != 0 && monster.typ.equals("Scp-049")) {
+             * history.setText("Deathclock is ticking"); } if (clock == 4 &&
+             * monster.typ.equals("Scp-049")) { monster.deathclock(player); }
+             * else { clock++;
+             * 
+             * } }
+             */
 
+            r++;
+            if (player.isDefeated()) {
+                System.out.println("Du hast den Kampf verloren.\n Game Over.");
+                kampf = false;
+                System.exit(0);
             }
-        }
-        r++;
-        if (player.isDefeated()) {
-            System.out.println("Du hast den Kampf verloren.\n Game Over.");
-            System.exit(0);
         }
     }
 }
