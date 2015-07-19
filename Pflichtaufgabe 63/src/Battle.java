@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 /**
- * Dies ist Pflichtaufgabe 70.
+ * Dies ist Pflichtaufgabe 73.
  * 
  * @author Sophie Duehn 4577449 Gruppe 3b
  * @author Laura Pichlmeier 4573524 Gruppe 3b
