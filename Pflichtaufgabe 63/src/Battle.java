@@ -110,7 +110,7 @@ public class Battle implements ActionListener {
         ScrollPane sp = new ScrollPane();
         history = new JTextArea("Was passiert ist:");
         sp.add(history);
-                        
+
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
@@ -256,40 +256,40 @@ public class Battle implements ActionListener {
         } else {
             Thread thread3 = new Thread() {
                 public void run() {
-                    history.append("Das Monster greift an\n");
-                    if (monster.attack(player) > -1) {
-                        history.append("Der Angriff des Monsters war erfolgreich\n");
-                        pHp.setText("Hp: " + player.hp);
-                        if (clock == 0) {
-                            clock = 1;
+                    while (kampf && !player.isDefeated()) {
+                        try {
+                            this.sleep(1000);
+                        } catch (InterruptedException e) {
                         }
-                    } else {
-                        history.append("Du bist ausgewichen\n");
-                    }
-                    if (r == 1 && clock != 0 && monster.typ.equals("Scp-049")) {
-                        history.append("Deathclock is ticking\n");
-                    }
-                    if (clock == 4 && monster.typ.equals("Scp-049")) {
-                        monster.deathclock(player);
-                    } else {
-                        clock++;
+                        history.setText("Das Monster greift an");
+                        if (monster.attack(player) > -1) {
+                            history.setText("Der Angriff des Monsters war erfolgreich");
+                            pHp.setText("Hp: " + player.hp);
+                            if (clock == 0) {
+                                clock = 1;
+                            }
+                        } else {
+                            history.setText("Du bist ausgewichen");
+                        }
+                        if (r == 1 && clock != 0 && monster.typ.equals("Scp-049")) {
+                            history.setText("Deathclock is ticking");
+                        }
+                        if (clock == 4 && monster.typ.equals("Scp-049")) {
+                            monster.deathclock(player);
+                        } else {
+                            clock++;
 
-                    }
-                    try {
-                        this.sleep(2000);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        }
+
+                        r++;
                     }
                 }
-
             };
-            thread3.start();
+                        thread3.start();
         }
-        r++;
         if (player.isDefeated()) {
             kampf = false;
-            System.out.println("Du hast den Kampf verloren.\n Game Over.");
+            history.append("Du hast den Kampf verloren.\n Game Over.");
             System.exit(0);
         }
     }
